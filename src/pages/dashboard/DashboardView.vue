@@ -20,7 +20,7 @@ onMounted(() => {
 <template>
   <template v-if="!loadingMain">
     <div class="bg-muted-opacity min-h-screen flex">
-      <div class="w-screen h-screen flex flex-col">
+      <div class="w-screen bg-[#F0F6FF] h-screen flex flex-col">
         <dashboard-header-component />
         <div class="h-full flex justify-between gap-4 pr-4 md:pl-4">
           <div class="my-4">

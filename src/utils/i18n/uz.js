@@ -22,12 +22,45 @@ export const uz = {
         internal_server_error: "Server bilan bog'liq xatolik",
         success: 'Muvaffaqiyatli'
     },
+    confirm: {
+        yes: "Ha",
+        no: "Yo'q",
+        delete: "O'chirishni tasdiqlayszmi!",
+    },
+
+    stats: {
+        workTime: "Ish vaqti",
+        workDays: "Ish kunlari",
+        unassignedTasks: "Ish hajmi biriktirilmagan vazifalar soni",
+        completedVolume: "Vaqt birligida bajarilgan vazifalar xajmi",
+        expectedVolume: "Vaqt birligida bajarilishi lozim bo'lgan vazifalar xajmi",
+        daysLate: "Kechikgan kun birligida",
+        hoursLate: "Kechikish vaqti birligida"
+    },
+
+    copy: 'Nusxa olish',
+    add_task: "Vazifa qo'shish",
+    edit: 'Tahrirlash',
+    save: "Saqlash",
+    cancel: "Bekor qilish",
+    no_data: "Ma'lumotlar mavjud emas",
+
+    board_list: {
+        Created: "Yaratilgan",
+        inProcess: 'Jarayonda',
+        finished: "Tugallangan"
+    },
     badge_component: {
-        default: 'Standart',
-        created: 'Yaratilgan',
-        sent: 'Yuborilgan',
-        rejected: 'Rad qilingan',
-        error: 'Xato'
+        CLOSED: 'Yakunlangan',
+        CREATED: 'Yaratilgan',
+        ACTIVE: 'Jarayonda',
+    },
+    priority_component: {
+        URGENT: 'Muhim',
+        HIGH: 'Yuqori',
+        MEDIUM: "O'rta",
+        NORMAL: 'Normal',
+        LOW: 'Past'
     },
     otp_component: {
         a_6_dig_code_has_ben_send_your_phone_number:
@@ -53,10 +86,10 @@ export const uz = {
         AuthLogin: "Kirish",
         DashboardNotFond: 'Sahifa topilmadi',
         DashboardSettingsView: 'Sozlamalar',
-        profileView:"Shaxsiy kabinet",
-        workingView:"Tabeli",
-        ProjectsView:"Loyihalar",
-        tasksView:"Vazifalarim",
+        ProfileView: "Shaxsiy kabinet",
+        WorkingView: "Tabeli",
+        ProjectsView: "Loyihalar",
+        TasksView: "Vazifalarim",
     },
     error_page: {
         page_not_found: 'Sahifa topilmadi (404)!',

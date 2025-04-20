@@ -16,22 +16,8 @@ const props = defineProps({
 })
 
 const statusList = ref({
-  CREATED: 'green',
-  APPROVED: 'green',
-  CANCELED: 'red',
-  ON_APPEAL: 'orange',
-  SENT: 'orange',
-  CONFIRMED: 'green',
-  ACCEPTED: 'green',
-  ACCEPTED_BY_BANK: 'blue',
-  REJECTED: 'red',
-  DELETED: 'red',
-  PENDING: 'orange',
-  ERROR: 'red',
-  FINISHED: 'green',
-  default: 'grey',
-  UNKNOWN_IN_BANK: 'orange',
-  TO_APPROVE: 'blue'
+  ACTIVE: 'green',
+  CLOSED: 'red',
 })
 </script>
 

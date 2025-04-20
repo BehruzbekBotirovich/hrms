@@ -1,5 +1,5 @@
 {
-  "name": "davr-payment-plan",
+  "name": "planera-ms",
   "private": true,
   "version": "0.00.01",
   "type": "module",
@@ -9,15 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
     "ant-design-vue": "^4.1.2",
     "axios": "^1.6.7",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.13",
     "pinia": "^2.1.7",
     "ua-parser-js": "^2.0.0-beta.3",
     "vue": "^3.4.19",
     "vue-i18n": "^9.9.1",
     "vue-router": "^4.3.0",
-    "vue3-lottie": "^3.3.0"
+    "vue3-lottie": "^3.3.0",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

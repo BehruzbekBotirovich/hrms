@@ -11,51 +11,41 @@ import IconTripleUser from '@/components/icons/IconTripleUser.vue'
 import IconCalendar from '@/components/icons/IconCalendar.vue'
 import IconProfile from '@/components/icons/IconProfile.vue'
 // views components
-
+import ProjectTasks from '../pages/dashboard/projects/views/FolderTasks.vue'
+import ProjectDeatils from '../pages/dashboard/projects/views/ProjectView.vue'
+import ProjectsList from '../pages/dashboard/projects/components/ProjectsList.vue'
 const navigations = [
-  // {
-  //   path: 'clients',
-  //   name: 'DashboardClientsView',
-  //   component: DashboardClientsView,
-  //   redirect: { name: 'ClientsView' },
-  //   meta: {
-  //     showMenu: true,
-  //     icon: () => h(IconTripleUser)
-  //   },
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'ClientsView',
-  //       component: ClientsView
-  //     },
-  //     {
-  //       path: 'transactions/:clientId',
-  //       name: 'ClientsTransactionsView',
-  //       component: TransactionsView
-  //     }
-  //   ]
-  // },
-
   {
     path: 'projects',
     name: 'ProjectsView',
     component: ProjectsPage,
-    // redirect: { name: 'TransactionsView' },
+    redirect: { name: 'ProjectsList' },
     meta: {
       showMenu: true,
       icon: () => h(IconProject)
     },
-    // children: [
-    //   {
-    //     path: '',
-    //     name: 'TransactionsView',
-    //     component: TransactionsView
-    //   }
-    // ]
+    children: [
+      {
+        path: '',
+        name: 'ProjectsList',
+        component: ProjectsList,
+      },
+      {
+        path: 'view/:id',
+        name: 'ProjectDetails',
+        component: ProjectDeatils,
+      },
+      {
+        path: 'tasks/:id/',
+        name: 'ProjectTasks',
+        component: ProjectTasks,
+      }
+
+    ]
   },
   {
     path: 'tasks',
-    name: 'tasksView',
+    name: 'TasksView',
     component: TasksPage,
     meta: {
       showMenu: true,
@@ -64,7 +54,7 @@ const navigations = [
   },
   {
     path: 'profile',
-    name: 'profileView',
+    name: 'ProfileView',
     component: ProfilePage,
     meta: {
       showMenu: true,
@@ -73,7 +63,7 @@ const navigations = [
   },
   {
     path: 'workings',
-    name: 'workingView',
+    name: 'WorkingView',
     component: WorkTimePage,
     meta: {
       showMenu: true,
