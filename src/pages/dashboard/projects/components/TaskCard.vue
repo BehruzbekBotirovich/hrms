@@ -14,10 +14,10 @@ const deleteTask = () => {
 
 <template>
     <div @click="$emit('selfClick')"
-        class="bg-white border rounded-lg p-3 shadow hover:shadow-md cursor-pointer space-y-2 transition-all">
+        class="bg-gray-50 border rounded-lg p-3 shadow hover:shadow-md cursor-pointer space-y-2 transition-all">
         <!-- Заголовок задачи -->
-        <div class="flex justify-between ">
-            <p class="text-sm font-medium leading-snug text-gray-800">
+        <div class="flex justify-between h-fit">
+            <p class="text-sm mb-0 font-medium leading-snug text-gray-800">
                 {{ task.title }}
             </p>
             <a-dropdown :trigger="['click']">
@@ -52,17 +52,16 @@ const deleteTask = () => {
                     </a-menu>
                 </template>
             </a-dropdown>
-
         </div>
-
+        <!-- Аватар -->
         <div class="flex gap-2">
-            <a-avatar size="small">
+            <a-avatar v-for="employee in task.assignedTo" :key="employee.id" size="">
                 <template #icon>
-                    <img src="@/assets/images/for_remove/avatar.png" alt="avatar" />
+                    <img crossorigin="anonymous" :src="`http://localhost:5000/user/avatar/` + employee.avatarUrl"
+                        alt="avatar" />
                 </template>
             </a-avatar>
         </div>
-        <!-- Аватар -->
         <!-- Нижняя информация -->
         <div class="flex items-center gap-2 text-xs text-gray-600 flex-wrap">
             <!-- Приоритет -->
@@ -79,8 +78,8 @@ const deleteTask = () => {
             </span>
 
             <!-- ID задачи -->
-            <span @click.stop="navigator.clipboard.writeText(task.id)"
-                class="text-blue-600 font-semibold hover:text-blue-800">#{{ task.id }}</span>
+            <span @click.stop="navigator.clipboard.writeText(task._id)"
+                class="text-blue-600 font-semibold hover:text-blue-800">#copy</span>
 
             <!-- Иконка комментариев -->
             <i class="bi bi-chat-left-text text-gray-400 ml-auto"></i>

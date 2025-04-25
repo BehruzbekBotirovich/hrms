@@ -1,9 +1,9 @@
 <template>
-    <section>
+    <section class="p-4">
         <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
             <router-link to="/dashboard/projects" class="hover:underline">Проекты</router-link>
             <span>/</span>
-            <span class="text-black font-semibold">{{ project.name }}</span>
+            <span class="text-black font-semibold">{{ projectName }}</span>
         </div>
 
         <div class="flex items-center justify-between mb-6">
@@ -11,90 +11,98 @@
                 <a-button @click="router.back()">
                     <icon-back />
                 </a-button>
-                <h2 class="text-2xl font-bold mb-0">Board</h2>
+                <h2 class="text-2xl font-bold mb-0">Boards</h2>
             </div>
-            <div class="flex space-x-2">
-                <a-input v-model="search" type="text" placeholder="Введите название Board..."
-                    class="input input-bordered input-sm w-52" />
-                <a-select v-model="statusFilter" class="w-[140px]" allowClear placeholder="Ustuvorlik tanlang">
+            <div class="flex items-center space-x-2">
+                <!-- <a-select v-model="statusFilter" class="w-[140px]" allowClear placeholder="Ustuvorlik tanlang">
                     <a-select-option value="all">Barchasi</a-select-option>
                     <a-select-option value="ACTIVE">Jarayonda</a-select-option>
                     <a-select-option value="INACTIVE">Yopilgan</a-select-option>
-                </a-select>
+                </a-select> -->
 
-                <a-button class="btn-sm gap-1">
+                <a-button @click="showDrawer" class="btn-sm gap-1">
                     <icon-triple-user />
-                    Прикрепленные сотрудники
+                    {{ $t('common.linked_employees') }}
+                </a-button>
+                <a-button @click="openAddBoardModal" class="bg-blue-600 text-white px-4 rounded hover:bg-blue-700">
+                    {{ $t('board_page.add') }}
                 </a-button>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-            <div v-for="board in filteredBoards" :key="board.id"
+            <div v-for="board in productsStore.boards" :key="board.id"
                 class="border bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition">
-                <router-link :to="`/dashboard/projects/tasks/${board.id}`">
+                <router-link
+                    :to="`/dashboard/projects/tasks/${board._id}?projectName=${projectName}&boardName=${board.name}&projectId=${projectId}`"
+                    class="flex flex-col h-full">
                     <div class="flex items-center gap-2">
                         <icon-folder />
-                        <h3 class="text-lg font-semibold mb-0">{{ board.title }}</h3>
+                        <h3 class="text-lg font-semibold mb-0">{{ board.name }}</h3>
                     </div>
                     <p class="text-sm text-gray-600 mb-2">
-                        Прикрепленные задачи: {{ board.tasks_count }}
+                        {{ $t('board_page.linked_employees') }}:
+                        <span class="text-blue-800 font-bold"> {{ board.taskCount }}</span>
                     </p>
                     <div class="flex items-center space-x-3 text-xs">
-                        <badge-component :status="board.status" />
+                        <badge-component status="false" content="Open" />
                         <div class="text-gray-700 border gap-1 p-1 rounded-lg flex items-center">
                             <icon-pinned />
-                            {{ board.creator }}
+                            {{ board.createdBy }}
                         </div>
                     </div>
                 </router-link>
             </div>
         </div>
     </section>
+
+    <a-drawer v-model:open="open" size="large" class="custom-class" placement="right" title="Участники проекта"
+        @after-open-change="afterOpenChange">
+        <projects-members-component :project-id="projectId" />
+    </a-drawer>
+
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, shallowRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import BadgeComponent from '@/components/BadgeComponent.vue'
+import useProjectsStore from '@/store/projects.pinia.js'
+import useModal from '@/store/modal.pinia.js'
 
-import IconFolder from '@/components/icons/IconFolder.vue'
-import IconPinned from '@/components/icons/IconPinned.vue'
-import IconArrowNarrowLeft from '@/components/icons/IconArrowNarrowLeft.vue'
-import IconBack from '@/components/icons/IconBack.vue'
-import IconTripleUser from '@/components/icons/IconTripleUser.vue'
+// components
+import ProjectsMembersComponent from '@/components/ProjectsMembersComponent.vue'
+import BadgeComponent from '@/components/BadgeComponent.vue'
+import AddBoardModal from '@/components/AddBoardModal.vue'
+
+const productsStore = useProjectsStore()
 
 const route = useRoute()
 const router = useRouter()
+const modal = useModal()
+
+const projectName = route.query.projectName;
 const projectId = route.params.id
 
-// Пример данных проекта
-const project = ref({
-    id: projectId,
-    name: 'Z-post'
+onMounted(() => {
+    productsStore.getBoardsForProject(projectId)
 })
 
 // Пример данных досок (board)
-const boards = ref([
-    { id: 1, title: 'Mobile app', tasks_count: '36', status: 'ACTIVE', creator: 'Dilshod Mirsoatov' },
-    { id: 2, title: 'Mobile bug fix', tasks_count: '33', status: 'ACTIVE', creator: 'Dilshod Mirsoatov' },
-    { id: 3, title: 'Front end', tasks_count: '14', status: 'ACTIVE', creator: 'Dilshod Mirsoatov' },
-    { id: 4, title: 'Backend', tasks_count: '9', status: 'ACTIVE', creator: 'Dilshod Mirsoatov' },
-    { id: 5, title: 'Managment', tasks_count: '3', status: 'ACTIVE', creator: 'Dilshod Mirsoatov' },
-    { id: 6, title: 'Delivery Front', tasks_count: '14', status: 'ACTIVE', creator: 'Abdurahim Zaynobiddinov' },
-])
-
-const search = ref('')
 const statusFilter = ref('all')
-
-const filteredBoards = computed(() => {
-    return boards.value.filter(b => {
-        const matchesTitle = b.title.toLowerCase().includes(search.value.toLowerCase())
-        const matchesStatus = statusFilter.value === 'all' || b.status === statusFilter.value
-        return matchesTitle && matchesStatus
+// add modalka
+function openAddBoardModal() {
+    modal.open({
+        component: shallowRef(AddBoardModal), props: { projectId: route.params.id },
     })
-})
+}
+
+// employyes of project drawer
+const open = ref(false);
+const showDrawer = () => {
+    productsStore.getMembersOfProject(projectId)
+    open.value = true;
+};
 
 </script>
 

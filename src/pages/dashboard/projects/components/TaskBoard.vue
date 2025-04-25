@@ -1,72 +1,120 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { onMounted, ref, computed, shallowRef } from 'vue'
 import draggable from 'vuedraggable'
-import TaskAddModal from './TaskAddModal.vue'
+import { useRoute } from 'vue-router'
+import useTasksStore from '@/store/tasks.pinia.js'
+import useModal from '@/store/modal.pinia.js'
+
+import currentTaskModal from '@/components/CurrentTaskModal.vue'
+import TaskAddModal from '@/components/AddTaskModal.vue'
 import TaskCard from './TaskCard.vue'
 
-const statuses = ['created', 'inProcess', 'review', 'finished']
+const modal = useModal()
+const tasksStore = useTasksStore()
+const route = useRoute()
+
+const boardId = route.params.id
+const projectId = route.query.projectId
+
+const statuses = ['Created', 'InProgress', 'Review', 'Test', 'Merge']
 
 const board_list = {
-    created: 'Yaratilgan',
-    inProcess: 'Jarayonda',
-    review: 'Ko‘rib chiqilmoqda',
-    finished: 'Tugallangan'
+    Created: 'Yaratilgan',
+    InProgress: 'Jarayonda',
+    Review: 'Ko‘rib chiqilmoqda',
+    Test: 'Sinovda',
+    Merge: 'Merge'
 }
 
-const tasksByStatus = reactive({
-    created: [
-        { id: 1469, title: 'API larga zapros berilganda loadinglar qo‘ylish kerak', priority: 'URGENT' },
-        { id: 1470, title: 'Frontendda validation yo‘q', priority: 'NORMAL' }
-    ],
-    inProcess: [
-        { id: 2, title: 'Zadacha 2', priority: 'HIGH' },
-        { id: 3, title: 'Zadacha 3' }
-    ],
-    review: [
-    ],
-    finished: [
-        { id: 5, title: 'Zadacha 5' }
-    ]
+
+// Переводим пришедшие с API статусы в нижний регистр
+const groupedTasks = computed(() => {
+    const result = {
+        Created: [],
+        InProgress: [],
+        Review: [],
+        Test: [],
+        Merge: []
+    }
+
+    const rawTasks = tasksStore.board_tasks
+
+    if (rawTasks && typeof rawTasks === 'object') {
+        for (const [statusKey, tasks] of Object.entries(rawTasks)) {
+            if (result[statusKey]) {
+                result[statusKey] = tasks
+            }
+        }
+    }
+
+    return result
 })
 
-const isModalVisible = ref(false)
-const selectedTask = ref(null)
 
-function openTaskModal(task = null) {
-    selectedTask.value = task
-    isModalVisible.value = true
+function openTaskModal(status) {
+    console.log('status', status) // ← теперь будет видно "Created", "InProgress", и т.д.
+    modal.open({
+        component: shallowRef(TaskAddModal),
+        props: {
+            status,
+            boardId,
+        }
+    })
+}
+
+function openCurrentTaskModal(element) {
+    modal.open({
+        component: shallowRef(currentTaskModal),
+        props: {
+            element,
+            boardId,
+            projectId
+        }
+    })
 }
 
 function onMove(evt, fromStatus, toStatus) {
     if (fromStatus !== toStatus) {
         const movedTask = evt.item._underlying_vm_
         movedTask.status = toStatus
+        tasksStore.changeTaskStatus(movedTask._id, toStatus, boardId)
     }
 }
+
+onMounted(() => {
+    tasksStore.getBoardTasks(boardId);
+    tasksStore.getMembersOfProject(projectId)
+})
 </script>
 
 <template>
-    <div class="grid grid-cols-4 gap-4 p-4">
-        <div v-for="status in statuses" :key="status"
-            class="col-span-1 bg-white rounded-xl shadow-lg p-4 flex-shrink-0 overflow-y-auto " >
-            <h3 class="font-bold text-center pb-2 border-b-2">
-                {{ board_list[status] }} / {{ tasksByStatus[status].length }}
-            </h3>
+    <div class="cankan-container">
+        <div class=" flex gap-4 p-4">
+            <div v-for="status in statuses" :key="status"
+                class="w-[300px] bg-white rounded-xl shadow-lg p-4 flex-shrink-0 overflow-y-auto">
+                <h3 class="font-bold text-center pb-2 border-b-2">
+                    {{ board_list[status] }} / {{ groupedTasks[status]?.length || 0 }}
+                </h3>
 
-            <draggable :list="tasksByStatus[status]" :group="{ name: 'tasks' }" item-key="id" class="space-y-2"
-                @add="evt => onMove(evt, evt.from.dataset.status, status)" :data-status="status">
-                <template #item="{ element }">
-                    <TaskCard :task="element" @selfClick="openTaskModal(element)" />
-                </template>
-            </draggable>
+                <draggable :list="groupedTasks[status]" :group="{ name: 'tasks' }" item-key="_id" class="h-fit space-y-3"
+                    @add="evt => onMove(evt, evt.from.dataset.status, status)" :data-status="status">
+                    <template #item="{ element }">
+                        <TaskCard :task="element" @selfClick="openCurrentTaskModal(element._id)" />
+                    </template>
+                </draggable>
 
-            <button class="mt-3 w-full bg-blue-500 text-white py-1 rounded" @click="() => openTaskModal({ status })">
-                {{ $t('add_task') }}
-            </button>
+                <button class="mt-3 w-full bg-blue-500 text-white py-1 rounded" @click="() => openTaskModal(status)">
+                    {{ $t('add_task') }}
+                </button>
+            </div>
         </div>
     </div>
 
-    <a-modal v-model:open="isModalVisible" :footer="null" width="900px" @cancel="isModalVisible = false">
-        <TaskAddModal :task="selectedTask" @close="isModalVisible = false" />
-    </a-modal>
 </template>
+
+<style scoped>
+.cankan-container {
+    overflow-y: scroll;
+    width: calc(100%);
+}
+</style>

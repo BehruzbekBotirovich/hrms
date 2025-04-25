@@ -27,6 +27,30 @@ export const uz = {
         no: "Yo'q",
         delete: "O'chirishni tasdiqlayszmi!",
     },
+    task: {
+        add_success: 'Vazifa muvaffaqiyatli qo\'shildi',
+        change_success: 'Vazifa muvaffaqiyatli o\'zgartirildi',
+        updated_success: 'Vazifa muvaffaqiyatli yangilandi',
+    },
+
+    projects_page: {
+        name: 'Loyiha nomi',
+        title: 'Loyihalar',
+        add: 'Loyiha qo\'shish',
+        edit_project: 'Loyihani tahrirlash',
+        description: 'Loyihani tavsifi',
+        start_date: 'Loyihaning boshlanish sanasi',
+        choose_employee: 'Ishchini tanlang',
+    },
+    common: {
+        add: 'Qo\'shish',
+        linked_employees: 'Biriktirilgan xodimlar',
+    },
+    board_page: {
+        linked_employees: 'Biriktirilgan xodimlar',
+        name: 'Bo\'lim nomi',
+        add: 'Bo\'lim qo\'shish',
+    },
 
     stats: {
         workTime: "Ish vaqti",
@@ -56,11 +80,11 @@ export const uz = {
         ACTIVE: 'Jarayonda',
     },
     priority_component: {
-        URGENT: 'Muhim',
-        HIGH: 'Yuqori',
-        MEDIUM: "O'rta",
-        NORMAL: 'Normal',
-        LOW: 'Past'
+        Urgent: 'Muhim',
+        High: 'Yuqori',
+        Medium: "O'rta",
+        Normal: 'Normal',
+        Low: 'Past'
     },
     otp_component: {
         a_6_dig_code_has_ben_send_your_phone_number:

@@ -16,8 +16,8 @@ const props = defineProps({
 })
 
 const statusList = ref({
-  ACTIVE: 'green',
-  CLOSED: 'red',
+  false: 'green',
+  true: 'red',
 })
 </script>
 

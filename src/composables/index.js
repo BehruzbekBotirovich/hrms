@@ -24,8 +24,16 @@ export function useValidator() {
         },
         trigger: 'blur'
     }
+
+    const emailValidator = {
+        type: 'email',
+        message: 'Введите корректный email',
+        trigger: ['blur', 'change'],
+    }
+
     return {
         requiredField,
-        phoneNumberValidator
+        phoneNumberValidator,
+        emailValidator,
     }
 }

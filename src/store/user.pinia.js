@@ -15,7 +15,7 @@ const useUser = defineStore('User', {
       const core = useCore()
       core.loadingMain = true
       api({
-        url: '/user/me'
+        url: '/users/me'
       })
         .then(({ data }) => {
           this.user = data

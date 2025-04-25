@@ -1,12 +1,15 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 import TaskBoard from '../components/TaskBoard.vue'
 const router = useRouter()
+const route = useRoute()
 
 const search = ref('')
 const statusFilterSelected = ref(null)
+const projectName = route.query.projectName
+const boardName = route.query.boardName
 
 const statusFilters = [
     { value: 'URGENT', label: 'MUHIM' },
@@ -21,7 +24,7 @@ const statusFilters = [
     <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
         <router-link to="/dashboard/projects" class="hover:underline">Проекты</router-link>
         <span>/</span>
-        <span class="text-black font-semibold">Project name / board name</span>
+        <span class="text-black font-semibold">{{ projectName }} / {{ boardName }}</span>
     </div>
 
     <div class="flex items-center justify-between mb-6">

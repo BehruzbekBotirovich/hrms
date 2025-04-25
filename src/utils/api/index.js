@@ -71,13 +71,16 @@ function refreshAccessToken(error) {
             }
         })
             .then(({ data }) => {
-                localStorage.setItem('access_token', data?.access_token)
-                localStorage.setItem('refresh_token', data?.refresh_token)
+                // Сохраняем новые токены
+                localStorage.setItem('access_token', data?.accessToken)
+                localStorage.setItem('refresh_token', data?.refreshToken)
+
+                // Повторяем оригинальный запрос с новым accessToken
                 return axios({
                     ...error.response.config,
                     headers: {
                         ...error.response.config.headers,
-                        Authorization: `Bearer ${data?.refresh_token}`
+                        Authorization: `Bearer ${data?.accessToken}`
                     }
                 })
             })
@@ -85,11 +88,14 @@ function refreshAccessToken(error) {
                 Clear()
                 return Promise.reject(error2)
             })
-            .finally(createAxiosResponseInterceptor)
+            .finally(() => {
+                createAxiosResponseInterceptor() // обязательно перезапускаем интерцептор
+            })
     }
     Clear()
     return Promise.reject('Error')
 }
+
 
 function Clear() {
     localStorage.removeItem('access_token')

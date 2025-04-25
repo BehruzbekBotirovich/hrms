@@ -16,11 +16,11 @@ const props = defineProps({
 })
 
 const statusList = {
-    URGENT: 'red',
-    HIGH: 'orange',
-    MEDIUM: 'yellow',
-    NORMAL: 'green',
-    LOW: 'blue'
+    Urgent: 'red',
+    High: 'orange',
+    Medium: 'yellow',
+    Normal: 'green',
+    Low: 'blue'
 }
 
 </script>
@@ -66,12 +66,17 @@ const statusList = {
 
 .orange {
     background-color: rgba(255, 165, 0, 0.1);
-    color: rgb(255, 165, 0);
+    color: rgb(255, 153, 0);
 }
 
 .blue {
     color: rgb(89, 105, 255);
     background-color: rgba(89, 105, 255, 0.1);
+}
+
+.yellow {
+    color: rgb(255, 204, 0);
+    background-color: rgba(255, 204, 0, 0.1);
 }
 
 .red {

@@ -83,7 +83,7 @@ const useCore = defineStore('core', {
     },
     logout() {
       localStorage.clear()
-      window.location.href = '/payplan'
+      window.location.href = '/auth/login'
     }
   },
   getters: {

@@ -1,10 +1,10 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import {AntDesignVueResolver} from 'unplugin-vue-components/resolvers'
-import {fileURLToPath, URL} from 'node:url'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import { fileURLToPath, URL } from 'node:url'
 
-export default defineConfig(({_command, mode}) => {
+export default defineConfig(({ _command, mode }) => {
     return {
         plugins: [
             vue(),
@@ -20,18 +20,11 @@ export default defineConfig(({_command, mode}) => {
             port: 3000,
             proxy: {
                 '/api': {
-                    target: 'https://payplan.dbusiness.uz',
+                    target: 'http://localhost:5000',
                     changeOrigin: true,
                     secure: false,
                     rewrite: (path) => path.replace(/^\/api/, '/api/')
                 },
-                '/eimzo': {
-                    target: 'https://payplan.dbusiness.uz',
-                    changeOrigin: true,
-                    secure: false,
-                    rewrite: (path) => path.replace(/^\/eimzo/, '/eimzo/')
-                }
-
             }
         },
         resolve: {

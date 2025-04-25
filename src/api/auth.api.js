@@ -43,10 +43,10 @@ export function getMobileQrScannedApi(documentId) {
 
 export function loginWithPasswordApi(form) {
   return api({
-    url: 'auth/sign-in',
+    url: 'auth/login',
     method: 'POST',
     data: {
-      username: form.username,
+      email: form.email,
       password: form.password
     }
   })

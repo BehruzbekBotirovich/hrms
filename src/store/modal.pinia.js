@@ -17,6 +17,11 @@ const useModal = defineStore('modal', {
       this.visibleModal.add(modalKey)
     },
     close(key) {
+      if (!key) {
+        this.visibleModal.clear()
+        return
+      }
+      this.visibleModal.delete(key)
       this.visibleModal.delete(key)
       this.timeOut = setTimeout(() => {
         this.modals.splice(
@@ -24,7 +29,7 @@ const useModal = defineStore('modal', {
           1
         )
         clearTimeout(this.timeOut)
-      }, 400)
+      }, 100)
     }
   }
 })
