@@ -9,6 +9,7 @@ const useTasksStore = defineStore('tasks', {
         project_members: [],
         current_task: null,
         loading: true,
+        my_tasks: [],
     }),
 
     actions: {
@@ -158,6 +159,46 @@ const useTasksStore = defineStore('tasks', {
                 })
         },
 
+        // delete task --> just archive it 
+        deleteTask(taskId, boardId) {
+            const core = useCore()
+            api({
+                url: `/tasks/${taskId}`,
+                method: 'DELETE'
+            })
+                .then(() => {
+                    this.getBoardTasks(boardId)
+                    core.setToast({
+                        locale: 'task.delete_success',
+                        type: 'success'
+                    })
+                })
+                .catch((error) => {
+                    core.switchStatus(error)
+                })
+        },
+
+        getMyTasks() {
+            const core = useCore()
+            // core.loadingMain = true
+            api({
+                url: `/users/me/tasks`,
+                method: 'GET'
+            })
+                .then(({ data }) => {
+                    this.my_tasks = data
+                    core.setToast({
+                        locale: 'task.get_success',
+                        type: 'success'
+                    })
+                })
+                .catch((error) => {
+                    core.switchStatus(error)
+                })
+                .finally(() => {
+                    // core.loadingMain = false
+                })
+        }
     }
 })
 

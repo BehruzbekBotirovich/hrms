@@ -4,24 +4,25 @@
     <div class="w-fit md:w-1/4 bg-white rounded-lg shadow p-6 h-fit">
       <div class="flex flex-col items-center text-center">
         <div class="relative">
-          <img class="w-32 h-32 rounded-full object-cover border" :src="profile.photo" alt="User photo" />
+          <img class="w-32 h-32 rounded-full object-cover border"
+            :src="`http://localhost:5000/user/avatar/` + userStore.user.avatarUrl" alt="User photo"
+            crossorigin="anonymous" />
           <button class="absolute bottom-1 right-1 bg-blue-600 text-white rounded-full p-1 hover:bg-blue-700">
             <icon-camera />
           </button>
         </div>
-        <h2 class="text-xl font-bold mt-4">{{ profile.lastName }} {{ profile.firstName }}</h2>
-        <p class="text-gray-600">{{ profile.position }}</p>
-        <p class="text-sm text-gray-400">{{ profile.age }} года</p>
+        <h2 class="text-xl font-bold mt-4">
+          {{ userStore.user?.fullName?.split(' ')[0] || '' }}
+          {{ userStore.user?.fullName?.split(' ')[1] || '' }}
+          {{ userStore.user?.fullName?.split(' ')[2] || '' }}
+        </h2>
+        <p class="text-gray-600">{{ userStore.user?.department }} {{ userStore.user?.role }} </p>
 
         <div class="mt-4 text-left w-full">
-          <p class="font-semibold text-sm text-gray-500 mb-1">Деятельность</p>
-          <p class="text-sm">{{ profile.organization }}</p>
           <p class="text-sm text-gray-600 mt-1">
-            Начало работы: <strong>{{ profile.startDate }}</strong>
+            Начало работы: <strong>{{ userStore.user.createdAt.split('T')[0] }}</strong>
           </p>
-          <p class="text-sm text-gray-600">
-            Занятость: <strong>{{ profile.employmentType }}</strong>
-          </p>
+
         </div>
       </div>
     </div>
@@ -34,9 +35,6 @@
           <user-profile-info />
         </a-tab-pane>
 
-        <a-tab-pane key="tasks" tab="Mening vazifalarim">
-          <my-tasks />
-        </a-tab-pane>
 
         <a-tab-pane key="workbook" tab="Статистика">
           <profile-stat />
@@ -49,17 +47,17 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import UserProfileInfo from './components/UserProfileInfo.vue'
-import MyTasks from './components/ProfileTasks.vue'
 import ProfileStat from './components/ProfileStat.vue'
+import useUser from '../../../store/user.pinia'
 
+const userStore = useUser()
 const activeTab = ref('main')
 const isEditing = ref(false)
 
 const profile = reactive({
-  firstName: 'Али',
-  lastName: 'Алиев',
-  patronymic: 'Алиевич',
-  age: 24,
+  firstName: userStore.user?.fullName?.split(' ')[0] || '',
+  lastName: userStore.user?.fullName?.split(' ')[1] || '',
+  patronymic: userStore.user?.fullName?.split(' ')[2] || '',
   photo: '/src/assets/images/for_remove/avatar.png',
   position: 'Дизайнер',
   organization: 'ЦИТ Министерство финансов Республики Узбекистан',

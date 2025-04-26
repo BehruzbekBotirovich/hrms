@@ -42,7 +42,17 @@ export const uz = {
         start_date: 'Loyihaning boshlanish sanasi',
         choose_employee: 'Ishchini tanlang',
     },
+    project_page: {
+        name: 'Loyiha nomi',
+        title: 'Loyihalar',
+        add: 'Loyiha qo\'shish',
+        edit_project: 'Loyihani tahrirlash',
+        description: 'Loyihani tavsifi',
+        start_date: 'Loyihaning boshlanish sanasi',
+        choose_employee: 'Ishchini tanlang',
+    },
     common: {
+        null: 'Noma\'lum',
         add: 'Qo\'shish',
         linked_employees: 'Biriktirilgan xodimlar',
     },

@@ -18,68 +18,72 @@
         <div class="flex justify-end mt-6 gap-2">
             <template v-if="isEditing">
                 <a-button @click="cancelEdit">Отмена</a-button>
-                <a-button type="primary" @click="saveChanges">{{ $t() }}</a-button>
+                <a-button type="primary" @click="saveChanges">Сохранить</a-button>
             </template>
             <template v-else>
-                <a-button type="primary" @click="isEditing = true">{{ $t('edit') }}</a-button>
+                <a-button type="primary" @click="isEditing = true">Редактировать</a-button>
             </template>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import dayjs from 'dayjs'
+import useUser from '@/store/user.pinia.js'
 
+const userStore = useUser()
 const isEditing = ref(false)
 
-// Данные по умолчанию (как будто с бэка)
 const profile = reactive({
-    firstName: 'Али',
-    lastName: 'Алиев',
-    patronymic: 'Алиевич',
-    gender: 'Мужской',
-    birthDate: dayjs('1995-06-01'),
-    city: 'г. Ташкент',
-    phone: '+99890 924 01 34',
-    homePhone: '+99871 924 01 34',
-    email: 'info@gmail.com',
-    passport: 'AA 2266666'
+    firstName: userStore.user?.fullName?.split(' ')[0] || '',
+    lastName: userStore.user?.fullName?.split(' ')[1] || '',
+    patronymic: userStore.user?.fullName?.split(' ')[2] || '',
+    role: userStore.user?.role || 'user',
+    department: userStore.user?.department || '',
+    email: userStore.user?.email || '',
+    // birthDate: dayjs(userStore.user?.birthDate).format('YYYY-MM-DD') || '',
+    phone: userStore.user?.phone || '',
+    passport: userStore.user?.passportSeries || '',
 })
 
 // Поля, которые редактируются
 const editableFields = [
-    { label: 'Имя', key: 'lastName', component: 'a-input' },
-    { label: 'Фамилия', key: 'firstName', component: 'a-input' },
+    { label: 'Имя', key: 'firstName', component: 'a-input' },
+    { label: 'Фамилия', key: 'lastName', component: 'a-input' },
     { label: 'Отчество', key: 'patronymic', component: 'a-input' },
-    {
-        label: 'Пол',
-        key: 'gender',
-        component: 'a-select',
-        options: [
-            { label: 'Мужской', value: 'Мужской' },
-            { label: 'Женский', value: 'Женский' }
-        ]
-    },
+    { label: 'Специалность', key: 'department', component: 'a-input' },
+    { label: 'Роль', key: 'role', component: 'a-input' },
     { label: 'Дата рождения', key: 'birthDate', component: 'a-date-picker' },
-    { label: 'Место рождения', key: 'city', component: 'a-input' },
     { label: 'Телефон', key: 'phone', component: 'a-input' },
-    { label: 'Домашний телефон', key: 'homePhone', component: 'a-input' },
     { label: 'Почта', key: 'email', component: 'a-input' },
-    { label: 'Серия и номер паспорта', key: 'passport', component: 'a-input' }
+    { label: 'Паспорт', key: 'passport', component: 'a-input' },
 ]
 
-// Логика
 const backup = reactive({ ...profile })
 
-function saveChanges() {
-    isEditing.value = false
-    Object.assign(backup, profile)
-    console.log('Сохранено:', profile)
+// Логика
+const saveChanges = () => {
+    userStore.updateMe({
+        fullName: `${profile.firstName} ${profile.lastName} ${profile.patronymic}`,
+        role: profile.role,
+        email: profile.email,
+        department: profile.department,
+        birthDate: profile.birthDate,
+        phone: profile.phone,
+        passportSeries: profile.passport,
+    })
 }
 
-function cancelEdit() {
+const cancelEdit = () => {
     isEditing.value = false
     Object.assign(profile, backup)
 }
 </script>
+
+<style scoped>
+.ant-tag {
+    user-select: none;
+    transition: all 0.2s;
+}
+</style>

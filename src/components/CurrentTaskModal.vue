@@ -1,5 +1,6 @@
 <template>
-    <div class="flex h-full w-[900px]">
+
+    <div class="flex h-full w-[950px]">
         <!-- Левая часть: форма -->
         <div class="w-2/3 p-6 bg-white rounded-lg shadow-md border overflow-y-auto">
             <h2 class="text-xl font-semibold mb-6">Vazifani o'zgartirish</h2>
@@ -31,30 +32,16 @@
                     </div>
                 </a-form-item>
 
-                <h3>Vaqt oraligi</h3>
                 <div class="flex gap-2 items-center">
-                    <a-form-item class="w-3/4">
+                    <a-form-item label="Vaqt oraligi" class="w-3/4 pt-6">
                         <a-range-picker v-model:value="form.dateRange" show-time format="YYYY-MM-DD HH:mm"
                             class="w-full" />
                     </a-form-item>
 
-                    <a-form-item label="Davomiyligi (soatda)" class="w-1/4">
+                    <a-form-item label="Davomiyligi (soatda)" class="w-1/4 pt-6">
                         <a-input-number v-model:value="form.duration" :min="1" class="w-full" />
                     </a-form-item>
                 </div>
-
-                <!-- <a-form-item>
-                    <h3>Rasmlar</h3>
-                    <a-upload v-model:file-list="fileList" list-type="picture-card" :before-upload="() => false"
-                        :on-preview="handlePreview" :on-change="handleUploadChange" :on-remove="handleRemove"
-                        accept="image/*" :max-count="1">
-                        <div v-if="fileList.length < 1">
-                            <plus-outlined />
-                            <div style="margin-top: 8px">Yuklash</div>
-                        </div>
-                    </a-upload>
-
-                </a-form-item> -->
 
                 <div class="flex justify-end gap-2 mt-4">
                     <a-button @click="handleCancel">Bekor qilish</a-button>
@@ -63,17 +50,50 @@
             </a-form>
         </div>
 
-        <!-- Правая часть -->
-        <div class="w-1/3 border-l p-4 flex flex-col justify-center items-center bg-gray-50 text-gray-400">
-            <p>Ma'lumot yo'q</p>
+        <!-- Правая часть: История изменений -->
+        <div class="w-1/3 border-l  bg-gray-50 text-gray-400">
+            <h3 class="font-semibold text-xl  p-4 pb-0">История</h3>
+            <div class="border-b-2 w-full px-4 py-1">
+                <div>
+                    <div class="font-semibold  mr-3">Created by {{ tasksStore.current_task?.createdBy?.fullName }} ({{
+                        tasksStore.current_task?.createdBy?.role }})</div>
+
+                    on <span class="text-green">{{ new Date(tasksStore.current_task?.createdAt).toLocaleString('en-US',
+                        {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        }) }}</span>
+                </div>
+            </div>
+            <div v-for="(entry, index) in tasksStore.current_task?.history" :key="entry._id"
+                class="border-b-2 w-full px-4 py-1">
+                <div>
+                    <span class="font-semibold  mr-3">{{ entry.by.fullName }} ({{ entry.by.role }})</span>
+                    <span>{{ new Date(entry?.timestamp).toLocaleString('en-US', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    }) }}</span>
+                </div>
+                <p class="text-sm text-gray-800 mb-0">{{ entry.action }}:
+                    <span>{{ entry.statusChange?.fromStatus }} --> {{ entry.statusChange?.toStatus }} </span>
+                </p>
+            </div>
         </div>
     </div>
+
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import useTasksStore from '@/store/tasks.pinia'
-import { PlusOutlined } from '@ant-design/icons-vue'
 import { priorities } from '../constants'
 
 const props = defineProps({
@@ -83,43 +103,29 @@ const props = defineProps({
 })
 
 const tasksStore = useTasksStore()
-const fileList = ref([])
-// const previewImage = ref('')
-// const previewVisible = ref(false)
-
-const form = ref({
+const form = reactive({
     title: '',
     description: '',
     assignees: [],
     priority: null,
     dateRange: [],
-    duration: null
+    duration: null,
 })
 
 onMounted(async () => {
     await tasksStore.getOneTask(props.element)
     const task = tasksStore.current_task
-    form.value = {
-        title: task?.title || '',
-        description: task?.description || '',
-        assignees: task?.assignedTo?.map(a => a._id) || [],
-        priority: task?.priority || null,
-        dateRange: task?.startDate && task?.dueDate
-            ? [new Date(task.startDate), new Date(task.dueDate)]
-            : [],
-        duration: task?.estimatedHours ?? null
-    }
+    form.title = task?.title || ''
+    form.description = task?.description || ''
+    form.assignees = task?.assignedTo?.map(a => a._id) || []
+    form.priority = task?.priority || null
 
-    if (task?.taskImg && typeof task.taskImg === 'string') {
-        fileList.value = [
-            {
-                uid: '-1',
-                name: task.taskImg,
-                status: 'done',
-                url: `http://localhost:5000/${task.taskImg}`
-            }
-        ]
-    }
+    // Преобразуем строки дат в объекты Date
+    form.dateRange = task?.startDate && task?.dueDate
+        ? [new Date(task.startDate), new Date(task.dueDate)]
+        : []
+
+    form.duration = task?.estimatedHours ?? null
 })
 
 const userOptions = computed(() =>
@@ -129,40 +135,15 @@ const userOptions = computed(() =>
     }))
 )
 
-// const handlePreview = async file => {
-//     if (!file.url && !file.preview) {
-//         file.preview = await getBase64(file.originFileObj)
-//     }
-//     previewImage.value = file.url || file.preview
-//     previewVisible.value = true
-// }
-
-// const handleUploadChange = ({ fileList: newList }) => {
-//     fileList.value = newList.slice(-1) // гарантируем один файл
-// }
-
-
-// const handleRemove = file => {
-//     fileList.value = fileList.value.filter(f => f.uid !== file.uid)
-// }
-
-// const getBase64 = file =>
-//     new Promise((resolve, reject) => {
-//         const reader = new FileReader()
-//         reader.readAsDataURL(file)
-//         reader.onload = () => resolve(reader.result)
-//         reader.onerror = error => reject(error)
-//     })
-
 const handleSubmit = () => {
     const payload = {
-        title: form.value.title,
-        description: form.value.description?.trim() || undefined,
-        estimatedHours: typeof form.value.duration === 'number' ? form.value.duration : undefined,
-        priority: form.value.priority || undefined,
-        assignedTo: [...form.value.assignees],
-        startDate: form.value.dateRange?.[0]?.toISOString() || undefined,
-        dueDate: form.value.dateRange?.[1]?.toISOString() || undefined,
+        title: form.title,
+        description: form.description?.trim() || undefined,
+        estimatedHours: typeof form.duration === 'number' ? form.duration : undefined,
+        priority: form.priority || undefined,
+        assignedTo: [...form.assignees],
+        startDate: form.dateRange?.[0]?.toISOString() || undefined,
+        dueDate: form.dateRange?.[1]?.toISOString() || undefined,
         status: props.status,
         boardId: props.boardId
     }
@@ -170,6 +151,9 @@ const handleSubmit = () => {
     tasksStore.updateTask(tasksStore.current_task._id, payload, props.boardId)
 }
 
+const handleCancel = () => {
+    // Закрытие через emit, если требуется
+}
 </script>
 
 <style scoped>

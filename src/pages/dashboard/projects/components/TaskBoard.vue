@@ -96,10 +96,11 @@ onMounted(() => {
                     {{ board_list[status] }} / {{ groupedTasks[status]?.length || 0 }}
                 </h3>
 
-                <draggable :list="groupedTasks[status]" :group="{ name: 'tasks' }" item-key="_id" class="h-fit space-y-3"
-                    @add="evt => onMove(evt, evt.from.dataset.status, status)" :data-status="status">
+                <draggable :list="groupedTasks[status]" :group="{ name: 'tasks' }" item-key="_id"
+                    class="h-fit space-y-3" @add="evt => onMove(evt, evt.from.dataset.status, status)"
+                    :data-status="status">
                     <template #item="{ element }">
-                        <TaskCard :task="element" @selfClick="openCurrentTaskModal(element._id)" />
+                        <TaskCard :task="element" :boardId="boardId" @selfClick="openCurrentTaskModal(element._id)" />
                     </template>
                 </draggable>
 

@@ -29,23 +29,28 @@ const useUser = defineStore('User', {
         })
     },
 
-    unLinkFromTelegram() {
+    updateMe(data) {
       const core = useCore()
+      // core.loadingMain = true
       api({
-        url: 'user/unlink-bot',
-        pk: this.user.hashId,
-        method: 'PUT'
+        url: `/users/${this.user._id}`,
+        method: 'PATCH',
+        data: data
       })
-        .then(({ }) => {
+        .then(({ data }) => {
+          this.user = data
           core.setToast({
-            locale: 'notification_component.success',
+            locale: 'user.update_success',
             type: 'success'
           })
         })
         .catch((error) => {
           core.switchStatus(error)
         })
-    },
+        .finally(() => {
+          // core.loadingMain = false
+        })
+    }
   }
 })
 

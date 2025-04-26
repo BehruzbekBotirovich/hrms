@@ -1,15 +1,21 @@
 <script setup>
 import BadgePriorityComponent from '@/components/BadgePriorityComponent.vue';
+import useTasksStore from '@/store/tasks.pinia.js';
+
+const tasksStore = useTasksStore()
+
 const props = defineProps({
     task: {
         type: Object,
         required: true
+    },
+    boardId: {
+        type: String,
+        required: true
     }
 })
 
-const deleteTask = () => {
-    console.log('delete task')
-}
+
 </script>
 
 <template>
@@ -42,10 +48,11 @@ const deleteTask = () => {
                             </div>
                         </a-menu-item>
                         <a-menu-item key="1">
-                            <a-popconfirm :title="$t('confirm.delete')" @confirm="deleteTask"
-                                :ok-text="$t('confirm.yes')" :cancel-text="$t('confirm.no')">
+                            <a-popconfirm :title="$t('confirm.delete')"
+                                @confirm="tasksStore.deleteTask(task._id, props.boardId)" :ok-text="$t('confirm.yes')"
+                                :cancel-text="$t('confirm.no')">
                                 <div class="flex items-center gap-1">
-                                    <icon-delete /> <span>Tahrirlash</span>
+                                    <icon-delete /><span>O'chirish</span>
                                 </div>
                             </a-popconfirm>
                         </a-menu-item>
@@ -65,7 +72,7 @@ const deleteTask = () => {
         <!-- Нижняя информация -->
         <div class="flex items-center gap-2 text-xs text-gray-600 flex-wrap">
             <!-- Приоритет -->
-            <badge-priority-component :status="task.priority" />
+            <badge-priority-component v-if="task.priority" :status="task.priority" />
 
             <!-- Дата (заглушка) -->
             <span class="flex items-center border p-1 rounded-lg bg-gray-50  gap-1">
