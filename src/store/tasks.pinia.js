@@ -47,6 +47,8 @@ const useTasksStore = defineStore('tasks', {
                         locale: 'task.change_success',
                         type: 'success'
                     })
+                    const message = data.message; // Сообщение для отправки в Telegram
+                    this.sendTelegramMessage(message)
                 })
                 .catch((error) => {
                     core.switchStatus(error)
@@ -134,6 +136,8 @@ const useTasksStore = defineStore('tasks', {
                         type: 'success'
                     })
                     modal.close()
+                    const message = data.message; // Сообщение для отправки в Telegram
+                    this.sendTelegramMessage(message)
                 })
                 .catch((error) => {
                     core.switchStatus(error)
@@ -198,6 +202,41 @@ const useTasksStore = defineStore('tasks', {
                 .finally(() => {
                     // core.loadingMain = false
                 })
+        },
+
+        async sendTelegramMessage(message) {
+            this.error = null;
+
+            const botToken = '7812173829:AAGsGjYvtjXNWGyi7JrXHFcJ9AN02OXFtSk';
+            const chatId = '5331352357'; // Укажите ваш chatId
+
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.ok) {
+                    console.log('Сообщение отправлено:', data.result.message_id);
+                } else {
+                    throw new Error('Ошибка отправки сообщения');
+                }
+            } catch (error) {
+                this.error = error.message;
+                console.error('Ошибка отправки сообщения:', error);
+            } finally {
+                this.isLoading = false;
+            }
         }
     }
 })
