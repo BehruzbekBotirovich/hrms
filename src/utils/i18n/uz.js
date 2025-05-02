@@ -28,6 +28,7 @@ export const uz = {
         delete: "O'chirishni tasdiqlayszmi!",
     },
     task: {
+        get_success: 'Vazifalar muvaffaqiyatli olindi',
         add_success: 'Vazifa muvaffaqiyatli qo\'shildi',
         change_success: 'Vazifa muvaffaqiyatli o\'zgartirildi',
         updated_success: 'Vazifa muvaffaqiyatli yangilandi',

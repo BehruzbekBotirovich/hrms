@@ -37,26 +37,6 @@ function handleChangeTranslate(value) {
         </div>
       </div>
     </a-menu-item>
-    <a-menu-item @click="handleChangeTranslate('cyr')" class="cursor-pointer">
-      <template #icon>
-        <FlagUzbek />
-      </template>
-      <div class="dropdown-content flex justify-between items-center ml-2">
-        <span class="dropdown-content-title">
-          {{ $t('translate_component.cyrillic') }}
-        </span>
-        <div class="chevron-right-con flex items-center text-sm font-medium">
-          <span
-            v-if="locale === 'cyr'"
-            class="text-primary flex items-center mr-3"
-          >
-            <span class="!leading-4 text-sm font-medium text-primary">
-              <IconCheck />
-            </span>
-          </span>
-        </div>
-      </div>
-    </a-menu-item>
     <a-menu-item @click="handleChangeTranslate('ru')" class="cursor-pointer">
       <template #icon>
         <FlagRussian />

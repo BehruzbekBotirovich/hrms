@@ -1,6 +1,5 @@
 import { createI18n } from 'vue-i18n'
 import uz from './uz'
-import cyr from './cyr.js'
 import ru from './ru'
 import en from '@/utils/i18n/en.js'
 import useCore from '@/store/core.pinia'
@@ -11,7 +10,7 @@ const i18nFactory = () => {
     legacy: false,
     locale: corePinia.locale,
     fallbackLocale: 'uz',
-    messages: { uz, cyr, ru, en }
+    messages: { uz,  ru, en }
   })
 }
 
