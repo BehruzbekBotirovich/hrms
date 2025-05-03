@@ -61,14 +61,14 @@ const navigations = [
       icon: () => h(IconProfile)
     },
   },
-  {
-    path: 'workings',
-    name: 'WorkingView',
-    component: WorkTimePage,
-    meta: {
-      showMenu: true,
-      icon: () => h(IconCalendar)
-    },
-  },
+  // {
+  //   path: 'workings',
+  //   name: 'WorkingView',
+  //   component: WorkTimePage,
+  //   meta: {
+  //     showMenu: true,
+  //     icon: () => h(IconCalendar)
+  //   },
+  // },
 ]
 export default navigations

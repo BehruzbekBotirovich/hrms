@@ -28,10 +28,14 @@ export const uz = {
         delete: "O'chirishni tasdiqlayszmi!",
     },
     task: {
+        noDueDate: 'muddati noma\'lum',
         get_success: 'Vazifalar muvaffaqiyatli olindi',
         add_success: 'Vazifa muvaffaqiyatli qo\'shildi',
         change_success: 'Vazifa muvaffaqiyatli o\'zgartirildi',
         updated_success: 'Vazifa muvaffaqiyatli yangilandi',
+        mine: 'Mening vazifalarim',
+        all: 'Barcha vazifalar',
+        members: 'Xodimlar',
     },
 
     projects_page: {
@@ -122,6 +126,9 @@ export const uz = {
         DashboardNotFond: 'Sahifa topilmadi',
         DashboardSettingsView: 'Sozlamalar',
         ProfileView: "Shaxsiy kabinet",
+        ProjectsList: "Loyihalar",
+        ProjectTasks: "Loyiha vazifalari",
+        ProjectDetails: "Loyiha tafsilotlari",
         WorkingView: "Tabeli",
         ProjectsView: "Loyihalar",
         TasksView: "Vazifalarim",

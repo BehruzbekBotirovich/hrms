@@ -14,12 +14,14 @@ const useTasksStore = defineStore('tasks', {
 
     actions: {
         //tasks for current board
-        getBoardTasks(boardId) {
+        getBoardTasks(boardId, params = {}) {
             const core = useCore()
-            // core.loadingMain = true
             api({
                 url: `/boards/${boardId}`,
-                method: 'GET'
+                method: 'GET',
+                params: {
+                    ...params
+                }
             })
                 .then(({ data }) => {
                     this.board_tasks = data
@@ -31,6 +33,7 @@ const useTasksStore = defineStore('tasks', {
                     // core.loadingMain = false
                 })
         },
+
 
         changeTaskStatus(taskId, status, boardId) {
             const core = useCore()

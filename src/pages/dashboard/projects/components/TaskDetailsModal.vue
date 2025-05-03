@@ -39,10 +39,11 @@
                     </div>
                 </a-form-item>
 
-
+                <h3>Belgilangan vaqt oraligi</h3>
+                <p>{{ }}</p>
                 <div class="flex gap-2 items-center">
                     <!-- Время начала и окончания -->
-                    <a-form-item label="Vaqt oraligi" class="pt-9 w-3/4">
+                    <a-form-item label="Vaqt oraligini ozgartirish" class="pt-9 w-3/4">
                         <a-range-picker v-model:value="form.dateRange" show-time format="YYYY-MM-DD HH:mm"
                             class="w-full" />
                     </a-form-item>
@@ -74,8 +75,6 @@
 
 <script setup>
 import { ref, h } from 'vue'
-import avatarAli from '@/assets/images/for_remove/avatar.png'
-import avatarVali from '@/assets/images/for_remove/avatar.png'
 
 const form = ref({
     title: '',

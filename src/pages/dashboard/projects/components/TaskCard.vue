@@ -1,6 +1,8 @@
 <script setup>
-import BadgePriorityComponent from '@/components/BadgePriorityComponent.vue';
-import useTasksStore from '@/store/tasks.pinia.js';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import useTasksStore from '@/store/tasks.pinia.js'
+import { notification } from 'ant-design-vue'
 
 const tasksStore = useTasksStore()
 
@@ -15,7 +17,23 @@ const props = defineProps({
     }
 })
 
-
+function copyCurrentRoute(id) {
+    const currentRoute = window.location.href; // Получаем текущий URL
+    navigator.clipboard.writeText(currentRoute + `&task_id=${id}`) // Копируем URL в буфер обмена
+        .then(() => {
+            notification.success({
+                message: 'Ссылка скопирована!',
+                duration: 1, // Длительность уведомления в секундах
+            })
+        })
+        .catch((err) => {
+            console.error('Ошибка при копировании в буфер обмена:', err);
+            notification.error({
+                message: 'Ошибка при копировании',
+                duration: 2, // Длительность уведомления в секундах
+            })
+        });
+}
 </script>
 
 <template>
@@ -62,7 +80,7 @@ const props = defineProps({
         </div>
         <!-- Аватар -->
         <div class="flex gap-2">
-            <a-avatar v-for="employee in task.assignedTo" :key="employee.id" size="">
+            <a-avatar v-for="employee in task.assignedTo" :key="employee.id" size="medium">
                 <template #icon>
                     <img crossorigin="anonymous" :src="`http://localhost:5000/user/avatar/` + employee.avatarUrl"
                         alt="avatar" />
@@ -81,12 +99,17 @@ const props = defineProps({
                         d="M20.984 12.8555C21.0938 10.9948 20.6232 9.14583 19.6371 7.56405C18.6511 5.98226 17.1982 4.74566 15.4792 4.02503C13.7601 3.30439 11.8598 3.13527 10.0405 3.54102C8.22123 3.94678 6.57282 4.90738 5.32292 6.29018C4.07303 7.67298 3.28331 9.40975 3.06283 11.2606C2.84235 13.1115 3.20198 14.9852 4.09207 16.6229C4.98216 18.2606 6.35878 19.5816 8.03183 20.4033C9.70487 21.2251 11.5918 21.5071 13.432 21.2105M12 7.32549V12.3255L15 15.3255M19 16.3255L17 19.3255H21L19 22.3255"
                         stroke="#354052" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                Apr 05
+                {{ task.dueDate ? new Date(task.dueDate).toLocaleDateString('ru-RU', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                }) : $t('task.noDueDate') }}
             </span>
 
             <!-- ID задачи -->
-            <span @click.stop="navigator.clipboard.writeText(task._id)"
-                class="text-blue-600 font-semibold hover:text-blue-800">#copy</span>
+            <span @click.stop="copyCurrentRoute(task._id)" class="text-blue-600 font-semibold hover:text-blue-800">
+                #copy
+            </span>
 
             <!-- Иконка комментариев -->
             <i class="bi bi-chat-left-text text-gray-400 ml-auto"></i>

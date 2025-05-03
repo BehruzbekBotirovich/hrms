@@ -2,8 +2,8 @@
   <div class="p-4">
     <h3 class="text-2xl font-bold">{{ $t('menu.TasksView') }}</h3>
     <div class="flex gap-2 overflow-x-scroll " style="width:calc(100vw - 200px)">
-      <div v-for="status in tasksStore.my_tasks" :key="status" class="bg-white rounded-lg h-fit">
-        <h3 class="px-4 py-2 border-b-2 ">Status name</h3>
+      <div v-for="(status, index) in tasksStore.my_tasks" :key="index" class="bg-white rounded-lg h-fit">
+        <h3 class="px-4 py-2 border-b-2 "> {{ index }}</h3>
 
         <router-link v-for="task in status" :key="task._id"
           :to="`/dashboard/projects/tasks/${task?.boardId?._id}?projectName=${projectId?.name}&boardName=${task?.boardId?.name}&projectId=${task?.projectId?._id}`">
@@ -50,6 +50,5 @@ onMounted(() => {
 <style scoped>
 .task-card {
   width: 300px !important;
-  /* Гарантированное применение ширины */
 }
 </style>

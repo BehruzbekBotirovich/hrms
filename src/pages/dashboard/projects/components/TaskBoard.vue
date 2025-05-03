@@ -21,7 +21,7 @@ const statuses = ['Created', 'InProgress', 'Review', 'Test', 'Merge']
 const board_list = {
     Created: 'Yaratilgan',
     InProgress: 'Jarayonda',
-    Review: 'Ko‘rib chiqilmoqda',
+    Review: 'Review',
     Test: 'Sinovda',
     Merge: 'Merge'
 }
@@ -81,10 +81,6 @@ function onMove(evt, fromStatus, toStatus) {
     }
 }
 
-onMounted(() => {
-    tasksStore.getBoardTasks(boardId);
-    tasksStore.getMembersOfProject(projectId)
-})
 </script>
 
 <template>

@@ -42,7 +42,7 @@
                         <h3 class="text-lg font-semibold mb-0">{{ board.name }}</h3>
                     </div>
                     <p class="text-sm text-gray-600 mb-2">
-                        {{ $t('board_page.linked_employees') }}:
+                        Vazifalar soni:
                         <span class="text-blue-800 font-bold"> {{ board.taskCount }}</span>
                     </p>
                     <div class="flex items-center space-x-3 text-xs">
