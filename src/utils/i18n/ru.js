@@ -12,8 +12,8 @@ export const ru = {
     },
     translate_component: {
         active: 'Активен',
-        latin: 'Узбек (латиница)',
-        cyrillic: 'Узбек (кириллица)',
+        latin: 'Узбекский (латиница)',
+        cyrillic: 'Ўзбекский (кириллица)',
         russian: 'Русский',
         english: 'Английский'
     },
@@ -28,10 +28,19 @@ export const ru = {
         delete: 'Вы уверены, что хотите удалить?'
     },
     task: {
+        time_limit: 'Установленный временной интервал',
+        task_priority: 'Приоритет задачи',
+        linked_employees: 'Назначенные сотрудники',
+        boards: 'Список процессов',
+        count: 'Количество задач',
+        noDueDate: 'срок не указан',
         get_success: 'Задачи успешно получены',
         add_success: 'Задача успешно добавлена',
         change_success: 'Задача успешно изменена',
-        updated_success: 'Задача успешно обновлена'
+        update_success: 'Задача успешно обновлена',
+        mine: 'Мои задачи',
+        all: 'Все задачи',
+        members: 'Сотрудники'
     },
     projects_page: {
         name: 'Название проекта',
@@ -54,21 +63,21 @@ export const ru = {
     common: {
         null: 'Неизвестно',
         add: 'Добавить',
-        linked_employees: 'Закрепленные сотрудники'
+        linked_employees: 'Назначенные сотрудники'
     },
     board_page: {
-        linked_employees: 'Закрепленные сотрудники',
-        name: 'Название отдела',
-        add: 'Добавить отдел'
+        linked_employees: 'Назначенные сотрудники',
+        name: 'Название раздела',
+        add: 'Добавить раздел'
     },
     stats: {
         workTime: 'Рабочее время',
         workDays: 'Рабочие дни',
-        unassignedTasks: 'Нераспределённые задачи',
+        unassignedTasks: 'Задачи без назначения',
         completedVolume: 'Объём выполненных задач за единицу времени',
         expectedVolume: 'Ожидаемый объём задач за единицу времени',
-        daysLate: 'Просрочка (дни)',
-        hoursLate: 'Просрочка (часы)'
+        daysLate: 'Количество дней задержки',
+        hoursLate: 'Продолжительность задержки'
     },
     copy: 'Копировать',
     add_task: 'Добавить задачу',
@@ -82,7 +91,7 @@ export const ru = {
         finished: 'Завершено'
     },
     badge_component: {
-        CLOSED: 'Завершено',
+        CLOSED: 'Закрыто',
         CREATED: 'Создано',
         ACTIVE: 'В процессе'
     },
@@ -94,7 +103,8 @@ export const ru = {
         Low: 'Низкий'
     },
     otp_component: {
-        a_6_dig_code_has_ben_send_your_phone_number: 'На номер {phone_number} отправлен 6-значный код',
+        a_6_dig_code_has_ben_send_your_phone_number:
+            '6-значный код был отправлен на номер {phone_number}',
         enter_a_code: 'Введите код',
         send: 'Отправить',
         resend_code: 'Отправить повторно',
@@ -102,10 +112,13 @@ export const ru = {
     },
     validations: {
         required_field: 'Обязательное поле',
-        the_phone_number_was_not_entered_completely: 'Введите корректный номер телефона',
-        invalid_phone_number_code: 'Неверный код номера телефона. Разрешены коды: ',
-        invalid_password: 'Минимум 8 символов, минимум одна заглавная и одна строчная буква, только латиница, минимум одна цифра, без пробелов, допустимые символы: ',
-        invalid_email: 'Неверный email'
+        the_phone_number_was_not_entered_completely:
+            'Введите правильный номер телефона',
+        invalid_phone_number_code:
+            'Недопустимый код номера телефона. Разрешённые коды: ',
+        invalid_password:
+            'Минимум 8 символов, минимум одна заглавная и одна строчная буква, только латиница, минимум одна цифра, только арабские цифры, без пробелов, допустимые спецсимволы: ',
+        invalid_email: 'Недопустимый адрес электронной почты'
     },
     menu: {
         AuthView: 'Вход',
@@ -114,9 +127,13 @@ export const ru = {
         DashboardNotFond: 'Страница не найдена',
         DashboardSettingsView: 'Настройки',
         ProfileView: 'Профиль',
+        ProjectsList: 'Проекты',
+        ProjectTasks: 'Задачи проекта',
+        ProjectDetails: 'Детали проекта',
         WorkingView: 'Табель',
         ProjectsView: 'Проекты',
-        TasksView: 'Мои задачи'
+        TasksView: 'Мои задачи',
+        EmployeesView: 'Сотрудники'
     },
     error_page: {
         page_not_found: 'Страница не найдена (404)!',
@@ -124,14 +141,14 @@ export const ru = {
     },
     auth_view: {
         title: 'Вход',
-        login: 'Войти',
+        login: 'Вход',
         username: 'Имя пользователя',
         password: 'Пароль',
         password_confirm: 'Подтвердите пароль',
         register: 'Регистрация',
         code: 'Код',
         phone_number: 'Номер телефона',
-        reset_password: 'Сбросить пароль',
+        reset_password: 'Сброс пароля',
         sign_in: 'Войти в систему'
     }
 }

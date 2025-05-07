@@ -25,7 +25,7 @@ const langObj = ref({
 })
 
 function goToTelegram() {
-  window.open(`https://t.me/payplan_uz_bot?start=${userStore.user.hashId}`, '_blank')
+  window.open(`https://t.me/planera_ms_bot`, '_blank')
 }
 
 const leaveTelegram = () => {
@@ -66,12 +66,6 @@ const leaveTelegram = () => {
                 <IconTelegram />
               </template>
               Telegram bot
-            </a-menu-item>
-            <a-menu-item v-if="userStore.user?.chatId" @click="leaveTelegram" class="!text-red">
-              <template #icon>
-                <IconTelegram :type="'leave'" />
-              </template>
-              {{ $t('telegram_unlink') }}
             </a-menu-item>
             <a-popconfirm :title="$t('header_component.do_you_want_to_log_out')" :ok-text="$t('header_component.yes')"
               :cancel-text="$t('header_component.no')" placement="bottomRight" @confirm="coreStore.logout()">

@@ -51,7 +51,6 @@ const useTasksStore = defineStore('tasks', {
                         type: 'success'
                     })
                     const message = data.message; // Сообщение для отправки в Telegram
-                    this.sendTelegramMessage(message)
                 })
                 .catch((error) => {
                     core.switchStatus(error)
@@ -139,8 +138,6 @@ const useTasksStore = defineStore('tasks', {
                         type: 'success'
                     })
                     modal.close()
-                    const message = data.message; // Сообщение для отправки в Telegram
-                    this.sendTelegramMessage(message)
                 })
                 .catch((error) => {
                     core.switchStatus(error)

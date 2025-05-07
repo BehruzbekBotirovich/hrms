@@ -12,12 +12,7 @@
           Management tool for your projects and tasks</h2>
       </div>
     </div>
-    <p class="m-0 mt-4 text-xs lg:text-base leading-[18px] font-medium text-center lg:text-left">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
-    </p>
+    
   </div>
 </template>
 

@@ -49,7 +49,7 @@
                 <!-- <a-form-item label="Rasm yuklash">
                     <input type="file" accept="image/*" @change="handleFileUpload" />
                 </a-form-item> -->
-<!-- 
+                <!-- 
                 <div v-if="imagePreview" class="mt-2">
                     <img :src="imagePreview" alt="Task Preview" class="w-32 h-32 object-cover rounded-md" />
                 </div> -->
@@ -135,10 +135,11 @@ const handleSubmit = () => {
 
     payload.append('status', props.status)
 
-    if (form.value.dateRange.length === 2) {
+    if (form.value.dateRange && form.value.dateRange.length === 2) {
         payload.append('startDate', form.value.dateRange[0].toISOString())
         payload.append('dueDate', form.value.dateRange[1].toISOString())
     }
+
 
     if (Array.isArray(form.value.assignees) && form.value.assignees.length > 0) {
         form.value.assignees.forEach(id => {

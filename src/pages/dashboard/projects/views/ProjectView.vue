@@ -1,7 +1,7 @@
 <template>
     <section class="p-4">
         <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
-            <router-link to="/dashboard/projects" class="hover:underline">Проекты</router-link>
+            <router-link to="/dashboard/projects" class="hover:underline">{{ $t('projects_page.title') }}</router-link>
             <span>/</span>
             <span class="text-black font-semibold">{{ projectName }}</span>
         </div>
@@ -42,7 +42,7 @@
                         <h3 class="text-lg font-semibold mb-0">{{ board.name }}</h3>
                     </div>
                     <p class="text-sm text-gray-600 mb-2">
-                        Vazifalar soni:
+                       {{ $t('task.count') }}:
                         <span class="text-blue-800 font-bold"> {{ board.taskCount }}</span>
                     </p>
                     <div class="flex items-center space-x-3 text-xs">

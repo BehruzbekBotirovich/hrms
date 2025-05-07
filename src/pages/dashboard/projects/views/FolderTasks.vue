@@ -77,7 +77,7 @@ const filterTasks = () => {
             <a-button @click="router.back()">
                 <icon-back />
             </a-button>
-            <h2 class="text-2xl font-bold mb-0">Jarayonlar roʻyxati</h2>
+            <h2 class="text-2xl font-bold mb-0">{{ $t('task.boards') }} </h2>
         </div>
         <div class="flex space-x-2">
             <a-input v-model:value="search" type="text" placeholder="Id boʻyicha izlash"

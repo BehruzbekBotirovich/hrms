@@ -15,13 +15,13 @@
                 </a-form-item>
 
                 <a-form-item>
-                    <h3>Biriktirilgan xodimlar</h3>
+                    <h3>{{$t('task.linked_employees')}}</h3>
                     <a-select v-model:value="form.assignees" mode="multiple" placeholder="Tayinlash"
                         :options="userOptions" show-search allow-clear />
                 </a-form-item>
 
                 <a-form-item>
-                    <h3>Muhimlik darajasi</h3>
+                    <h3>{{ $t('task.priority') }}</h3>
                     <div class="flex flex-wrap gap-2">
                         <a-tag v-for="priority in priorities" :key="priority.value"
                             :color="form.priority === priority.value ? priority.color : 'default'"
@@ -31,9 +31,17 @@
                         </a-tag>
                     </div>
                 </a-form-item>
-
+                <div>
+                    <h3>{{ $t('task.time_limit') }}</h3>
+                    <a-tag class="flex w-fit items-center gap-1" color="blue"
+                        size="small">
+                        <icon-clock />
+                        {{ dayjs(tasksStore.current_task?.startDate).format('MMM D  HH:mm') }} -
+                        {{ dayjs(tasksStore.current_task?.dueDate).format('MMM D    HH:mm') }}
+                    </a-tag>
+                </div>
                 <div class="flex gap-2 items-center">
-                    <a-form-item label="Vaqt oraligi" class="w-3/4 pt-6">
+                    <a-form-item label="Vaqt oraligi ozgatirish" class="w-3/4 pt-6">
                         <a-range-picker v-model:value="form.dateRange" show-time format="YYYY-MM-DD HH:mm"
                             class="w-full" />
                     </a-form-item>
@@ -95,6 +103,7 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import useTasksStore from '@/store/tasks.pinia'
 import { priorities } from '../constants'
+import dayjs from 'dayjs'
 
 const props = defineProps({
     element: Object,
@@ -115,17 +124,19 @@ const form = reactive({
 onMounted(async () => {
     await tasksStore.getOneTask(props.element)
     const task = tasksStore.current_task
+
     form.title = task?.title || ''
     form.description = task?.description || ''
     form.assignees = task?.assignedTo?.map(a => a._id) || []
     form.priority = task?.priority || null
 
     // Преобразуем строки дат в объекты Date
-    form.dateRange = task?.startDate && task?.dueDate
-        ? [new Date(task.startDate), new Date(task.dueDate)]
-        : []
-
-    form.duration = task?.estimatedHours ?? null
+    if (task?.startDate) {
+        form.dateRange[0] = new Date(task.startDate) // Преобразуем в объект Date
+    }
+    if (task?.dueDate) {
+        form.dateRange[1] = new Date(task.dueDate) // Преобразуем в объект Date
+    }
 })
 
 const userOptions = computed(() =>
@@ -151,9 +162,6 @@ const handleSubmit = () => {
     tasksStore.updateTask(tasksStore.current_task._id, payload, props.boardId)
 }
 
-const handleCancel = () => {
-    // Закрытие через emit, если требуется
-}
 </script>
 
 <style scoped>

@@ -14,6 +14,13 @@ import IconProfile from '@/components/icons/IconProfile.vue'
 import ProjectTasks from '../pages/dashboard/projects/views/FolderTasks.vue'
 import ProjectDeatils from '../pages/dashboard/projects/views/ProjectView.vue'
 import ProjectsList from '../pages/dashboard/projects/components/ProjectsList.vue'
+import EmployeesPage from '../pages/dashboard/employees/EmployeesPage.vue'
+// import useUser from '@/store/user.pinia.js'
+
+// const user = useUser()
+// const isAdmin = user.user?.role === 'admin'
+// const isManager = user.user?.role === 'manager'
+
 const navigations = [
   {
     path: 'projects',
@@ -40,7 +47,6 @@ const navigations = [
         name: 'ProjectTasks',
         component: ProjectTasks,
       }
-
     ]
   },
   {
@@ -61,14 +67,24 @@ const navigations = [
       icon: () => h(IconProfile)
     },
   },
+  {
+    path: 'employees',
+    name: 'EmployeesView',
+    component: EmployeesPage,
+    meta: {
+      showMenu: true, // отображать только для админа и менеджера
+      icon: () => h(IconTripleUser)
+    },
+  },
   // {
   //   path: 'workings',
   //   name: 'WorkingView',
   //   component: WorkTimePage,
   //   meta: {
-  //     showMenu: true,
+  //     showMenu: isAdmin || isManager, // показывать для админа и менеджера
   //     icon: () => h(IconCalendar)
   //   },
   // },
 ]
+
 export default navigations
