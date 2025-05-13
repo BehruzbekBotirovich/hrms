@@ -20,7 +20,7 @@ export default defineConfig(({ _command, mode }) => {
             port: 3000,
             proxy: {
                 '/api': {
-                    target: 'http://localhost:5000',
+                    target: 'https://hrms-backend-mvdb.onrender.com',
                     changeOrigin: true,
                     secure: false,
                     rewrite: (path) => path.replace(/^\/api/, '/api/')

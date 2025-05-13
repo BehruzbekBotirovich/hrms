@@ -84,27 +84,34 @@ function onMove(evt, fromStatus, toStatus) {
 </script>
 
 <template>
+
+
     <div class="cankan-container">
-        <div class=" flex gap-4 p-4">
-            <div v-for="status in statuses" :key="status"
-                class="w-[300px] bg-white rounded-xl shadow-lg p-4 flex-shrink-0 overflow-y-auto">
-                <h3 class="font-bold text-center pb-2 border-b-2">
-                    {{ board_list[status] }} / {{ groupedTasks[status]?.length || 0 }}
-                </h3>
+        <a-spin :spinning="tasksStore.loading" size="large">
+            <div class=" flex gap-4 p-4">
+                <div v-for="status in statuses" :key="status"
+                    class="w-[300px] bg-white rounded-xl shadow-lg p-4 flex-shrink-0 overflow-y-auto">
+                    <h3 class="font-bold text-center pb-2 border-b-2">
+                        {{ board_list[status] }} / {{ groupedTasks[status]?.length || 0 }}
+                    </h3>
 
-                <draggable :list="groupedTasks[status]" :group="{ name: 'tasks' }" item-key="_id"
-                    class="h-fit space-y-3" @add="evt => onMove(evt, evt.from.dataset.status, status)"
-                    :data-status="status">
-                    <template #item="{ element }">
-                        <TaskCard :task="element" :boardId="boardId" @selfClick="openCurrentTaskModal(element._id)" />
-                    </template>
-                </draggable>
+                    <draggable :list="groupedTasks[status]" :group="{ name: 'tasks' }" item-key="_id"
+                        class="h-fit space-y-3" @add="evt => onMove(evt, evt.from.dataset.status, status)"
+                        :data-status="status">
+                        <template #item="{ element }">
+                            <TaskCard :task="element" :boardId="boardId"
+                                @selfClick="openCurrentTaskModal(element._id)" />
+                        </template>
+                    </draggable>
 
-                <button class="mt-3 w-full bg-blue-500 text-white py-1 rounded" @click="() => openTaskModal(status)">
-                    {{ $t('add_task') }}
-                </button>
+                    <button class="mt-3 w-full bg-blue-500 text-white py-1 rounded"
+                        @click="() => openTaskModal(status)">
+                        {{ $t('add_task') }}
+                    </button>
+                </div>
             </div>
-        </div>
+        </a-spin>
+
     </div>
 
 </template>

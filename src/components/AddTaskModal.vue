@@ -56,7 +56,7 @@
 
                 <div class="flex justify-end gap-2 mt-4">
                     <a-button @click="handleCancel">Bekor qilish</a-button>
-                    <a-button type="primary" html-type="submit">Saqlash</a-button>
+                    <a-button type="primary" html-type="submit" :loading="tasksStore.loading">Saqlash</a-button>
                 </div>
             </a-form>
         </div>

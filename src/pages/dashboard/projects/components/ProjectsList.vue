@@ -36,6 +36,7 @@
                     </div>
                 </router-link>
             </div>
+            <project-sceleton v-if="projectsStore.loading" />
         </div>
     </section>
 </template>
@@ -45,7 +46,7 @@ import { computed, ref, onMounted, shallowRef } from "vue";
 import useProjectsStore from "@/store/projects.pinia.js";
 import BadgeComponent from "@/components/BadgeComponent.vue";
 import useModal from '@/store/modal.pinia.js'
-
+import ProjectSceleton from "@/components/ProjectSceleton.vue";
 
 // icons
 import IconPinned from "@/components/icons/IconPinned.vue";
@@ -64,8 +65,8 @@ function openAddProjectModal() {
 
 
 onMounted(() => {
-    projectsStore.getProjects(),
-        projectsStore.getAllEmployees()
+    projectsStore.getProjects()
+    projectsStore.getAllEmployees()
 })
 
 

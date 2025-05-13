@@ -72,6 +72,8 @@ const filterTasks = () => {
         <span>/</span>
         <span class="text-black font-semibold">{{ projectName }} / {{ boardName }}</span>
     </div>
+   
+   
     <div class="flex items-center justify-between mb-6">
         <div class="flex gap-2 items-center">
             <a-button @click="router.back()">

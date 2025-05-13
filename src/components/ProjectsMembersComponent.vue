@@ -3,31 +3,25 @@ import { computed, ref } from 'vue'
 import useProjectsStore from '@/store/projects.pinia.js'
 import defaultAvatar from '/src/assets/images/def_ava.png'
 import SelectEmployeeComponent from './SelectEmployeeComponent.vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
 
-const props = defineProps({
-    projectId: {
-        type: String,
-        required: true
-    }
-})
 
 const projectsStore = useProjectsStore()
-
+const projectId = route.params.id
 // Подключаем список участников проекта
 const members = computed(() => projectsStore.project_members)
 
-// Логика для выбранных сотрудников
-const selectedEmployees = ref([]) // Мульти-селект
 </script>
 
 <template>
-    <a-table :dataSource="members" :pagination="false" rowKey="_id">
+    <a-table :dataSource="members" :pagination="false" rowKey="_id" :loading="projectsStore.loadingModal">
         <a-table-column title="F.I.SH">
             <template #default="{ record }">
                 <div class="flex items-center gap-2">
                     <img class="w-10 h-10 rounded-full object-cover border"
-                        :src="`http://localhost:5000/user/avatar/` + record.avatarUrl" alt="User photo"
-                        crossorigin="anonymous" />
+                        :src="`https://hrms-backend-mvdb.onrender.com/api/upload/avatar/` + record.avatarUrl"
+                        alt="User photo" crossorigin="anonymous" />
                     <span>{{ record.fullName }}</span>
                 </div>
             </template>
@@ -35,10 +29,21 @@ const selectedEmployees = ref([]) // Мульти-селект
         <a-table-column title="Bo‘lim" dataIndex="department" />
         <a-table-column title="Lavozim" dataIndex="position" />
         <a-table-column title="Roli" dataIndex="role" />
+        <a-table-column title="Action">
+            <template #default="{ record }">
+                <a-popconfirm :title="$t('project_page.delete_confirm')"
+                    @confirm="projectsStore.patchMemberOfProject(projectId, [record._id], 'remove')"
+                    :okText="$t('confirm.yes')" :cancelText="$t('confirm.no')">
+                    <a-button type="text" danger>
+                        <icon-delete class="text-xl" />
+                    </a-button>
+                </a-popconfirm>
+            </template>
+        </a-table-column>
     </a-table>
 
-    <select-employee-component />
-    
+    <select-employee-component :projectId="projectId" />
+
 </template>
 
 <style scoped>

@@ -42,7 +42,7 @@
                         <h3 class="text-lg font-semibold mb-0">{{ board.name }}</h3>
                     </div>
                     <p class="text-sm text-gray-600 mb-2">
-                       {{ $t('task.count') }}:
+                        {{ $t('task.count') }}:
                         <span class="text-blue-800 font-bold"> {{ board.taskCount }}</span>
                     </p>
                     <div class="flex items-center space-x-3 text-xs">
@@ -54,6 +54,7 @@
                     </div>
                 </router-link>
             </div>
+            <project-sceleton v-if="productsStore.loading" />
         </div>
     </section>
 
@@ -86,6 +87,7 @@ const projectId = route.params.id
 
 onMounted(() => {
     productsStore.getBoardsForProject(projectId)
+    productsStore.getAllEmployees()
 })
 
 // Пример данных досок (board)

@@ -15,7 +15,7 @@
                 </a-form-item>
 
                 <a-form-item>
-                    <h3>{{$t('task.linked_employees')}}</h3>
+                    <h3>{{ $t('task.linked_employees') }}</h3>
                     <a-select v-model:value="form.assignees" mode="multiple" placeholder="Tayinlash"
                         :options="userOptions" show-search allow-clear />
                 </a-form-item>
@@ -33,11 +33,15 @@
                 </a-form-item>
                 <div>
                     <h3>{{ $t('task.time_limit') }}</h3>
-                    <a-tag class="flex w-fit items-center gap-1" color="blue"
+                    <a-tag v-if="tasksStore.current_task?.startDate" class="flex w-fit items-center gap-1" color="blue"
                         size="small">
                         <icon-clock />
-                        {{ dayjs(tasksStore.current_task?.startDate).format('MMM D  HH:mm') }} -
-                        {{ dayjs(tasksStore.current_task?.dueDate).format('MMM D    HH:mm') }}
+                        {{ dayjs(tasksStore.current_task?.startDate).format('MMM D HH:mm') }} -
+                        {{ dayjs(tasksStore.current_task?.dueDate).format('MMM D HH:mm') }}
+                    </a-tag>
+                    <a-tag v-else class="flex w-fit items-center gap-1" color="gray" size="small">
+                        <icon-clock />
+                        {{ $t('task.noDueDate') }}
                     </a-tag>
                 </div>
                 <div class="flex gap-2 items-center">
@@ -113,7 +117,7 @@ const props = defineProps({
 
 const tasksStore = useTasksStore()
 const form = reactive({
-    title: '',
+    title: '',  
     description: '',
     assignees: [],
     priority: null,
@@ -129,7 +133,7 @@ onMounted(async () => {
     form.description = task?.description || ''
     form.assignees = task?.assignedTo?.map(a => a._id) || []
     form.priority = task?.priority || null
-
+    form.duration = task?.estimatedHours || null
     // Преобразуем строки дат в объекты Date
     if (task?.startDate) {
         form.dateRange[0] = new Date(task.startDate) // Преобразуем в объект Date

@@ -50,6 +50,29 @@ const useUser = defineStore('User', {
         .finally(() => {
           // core.loadingMain = false
         })
+    },
+    
+    updateAvatar(data) {
+      const core = useCore()
+      // core.loadingMain = true
+      api({
+        url: `/upload/upload-avatar`,
+        method: 'POST',
+        data: data
+      })
+        .then(({ data }) => {
+          this.user = data
+          core.setToast({
+            locale: 'user.update_success',
+            type: 'success'
+          })
+        })
+        .catch((error) => {
+          core.switchStatus(error)
+        })
+        .finally(() => {
+          // core.loadingMain = false
+        })
     }
   }
 })

@@ -21,12 +21,12 @@ import {
 } from '@ant-design/icons-vue'
 
 const stats = [
-    { key: 'workTime', value: '208 soat', icon: ClockCircleOutlined },
-    { key: 'workDays', value: '26 kun', icon: CalendarOutlined },
+    // { key: 'workTime', value: '208 soat', icon: ClockCircleOutlined },
+    // { key: 'workDays', value: '26 kun', icon: CalendarOutlined },
     { key: 'unassignedTasks', value: '14', icon: QuestionCircleOutlined },
     { key: 'completedVolume', value: '4 soat', icon: CheckCircleOutlined },
     { key: 'expectedVolume', value: '33 soat', icon: FileTextOutlined },
-    { key: 'daysLate', value: '<strong>26 ish kunidan 14 kun kechikgan</strong>', icon: ClockCircleOutlined },
-    { key: 'hoursLate', value: '<strong>208 soat dan 33 soat 21 daqiqa kechikgan</strong>', icon: ClockCircleOutlined },
+    // { key: 'daysLate', value: '<strong>26 ish kunidan 14 kun kechikgan</strong>', icon: ClockCircleOutlined },
+    // { key: 'hoursLate', value: '<strong>208 soat dan 33 soat 21 daqiqa kechikgan</strong>', icon: ClockCircleOutlined },
 ]
 </script>

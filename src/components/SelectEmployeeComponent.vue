@@ -14,35 +14,42 @@ const projectsStore = useProjectsStore()
 
 // Подключаем список участников проекта
 const members = computed(() => projectsStore.project_members)
+const all_members = computed(() => projectsStore.all_employees)
 
-// Массив выбранных пользователей
-const selectedEmployees = ref([]) // Мульти-селект
+const for_select = computed(() => {
+    return all_members.value.filter((member) => {
+        // Проверяем, есть ли участник в проекте
+        return !members.value.some((projectMember) => projectMember._id === member._id)
+    })
+})
+
+const selectedEmployees = ref([])
+const addMember = () => {
+    projectsStore.patchMemberOfProject(props.projectId, selectedEmployees.value, 'add')
+    selectedEmployees.value = []
+}
 </script>
 
 <template>
-    <!-- Мульти-селект для выбора сотрудников -->
-    <a-select v-model:value="selectedEmployees" mode="multiple" placeholder="Select employees" style="width: 300px"
-        option-label-prop="fullName" option-value-prop="_id" show-arrow tag-render="custom"
-        :dropdownRender="dropdownRender">
-        <a-select-option v-for="member in members" :key="member._id" :value="member._id">
-            <div class="flex items-center gap-2">
-                <img class="w-8 h-8 rounded-full object-cover"
-                    :src="`http://localhost:5000/user/avatar/${member.avatarUrl || 'default.png'}`" alt="User photo"
-                    crossorigin="anonymous" />
-                <span>{{ member.fullName }}</span>
-            </div>
-        </a-select-option>
-    </a-select>
-
-    <!-- Отображение выбранных сотрудников -->
-    <div class="flex gap-2 mt-4">
-        <div v-for="(selected, index) in selectedEmployees" :key="index" class="flex items-center gap-2">
-            <img class="w-8 h-8 rounded-full object-cover"
-                :src="`http://localhost:5000/user/avatar/${selected.avatarUrl || 'default.png'}`" alt="User photo"
-                crossorigin="anonymous" />
-            <span>{{ selected.fullName }}</span>
-        </div>
+    <div class="flex items-center justify-between gap-2 mt-3">
+        <a-select v-model:value="selectedEmployees" mode="multiple" placeholder="Select employees" style="width: 100%"
+            option-label-prop="fullName" option-value-prop="_id" show-arrow tag-render="custom"
+            :dropdownRender="dropdownRender">
+            <a-select-option  v-for="member in for_select" :key="member.fullName" :value="member._id">
+                <div class="flex items-center gap-2">
+                    <img class="w-8 h-8 rounded-full object-cover"
+                        :src="`https://hrms-backend-mvdb.onrender.com/api/upload/avatar/${member.avatarUrl || 'default.png'}`"
+                        alt="User photo" crossorigin="anonymous" />
+                    <span>{{ member.fullName }}</span>
+                </div>
+            </a-select-option>
+        </a-select>
+        <a-button type="primary" @click="addMember" :disabled="selectedEmployees.length === 0">
+            {{ $t('project_page.add_member') }}
+        </a-button>
     </div>
+
+
 </template>
 
 <style scoped>

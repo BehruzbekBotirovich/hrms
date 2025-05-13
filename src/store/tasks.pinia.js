@@ -10,11 +10,13 @@ const useTasksStore = defineStore('tasks', {
         current_task: null,
         loading: true,
         my_tasks: [],
+        loading: false,
     }),
 
     actions: {
         //tasks for current board
         getBoardTasks(boardId, params = {}) {
+            this.loading = true
             const core = useCore()
             api({
                 url: `/boards/${boardId}`,
@@ -30,10 +32,9 @@ const useTasksStore = defineStore('tasks', {
                     core.switchStatus(error)
                 })
                 .finally(() => {
-                    // core.loadingMain = false
+                    this.loading = false
                 })
         },
-
 
         changeTaskStatus(taskId, status, boardId) {
             const core = useCore()
@@ -99,11 +100,10 @@ const useTasksStore = defineStore('tasks', {
                 })
         },
 
-
         addNewTask(task, boardId) {
             const modal = useModal()
             const core = useCore()
-
+            this.loading = true
             const filteredFormData = new FormData()
 
             for (const [key, value] of task.entries()) {
@@ -141,6 +141,9 @@ const useTasksStore = defineStore('tasks', {
                 })
                 .catch((error) => {
                     core.switchStatus(error)
+                })
+                .finally(() => {
+                    this.loading = false
                 })
         },
 
@@ -183,8 +186,8 @@ const useTasksStore = defineStore('tasks', {
         },
 
         getMyTasks() {
+            this.loading = true
             const core = useCore()
-            // core.loadingMain = true
             api({
                 url: `/users/me/tasks`,
                 method: 'GET'
@@ -200,7 +203,7 @@ const useTasksStore = defineStore('tasks', {
                     core.switchStatus(error)
                 })
                 .finally(() => {
-                    // core.loadingMain = false
+                    this.loading = false
                 })
         },
 

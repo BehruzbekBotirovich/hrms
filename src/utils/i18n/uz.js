@@ -29,7 +29,7 @@ export const uz = {
     },
     task: {
         time_limit: 'Belgilangan vaqt oraligi',
-        task_priority: 'Vazifa ustuvorligi',
+        priority: 'Vazifa ustuvorligi',
         linked_employees: 'Biriktirilgan xodimlar',
         boards: 'Jarayonlar roʻyxati',
         count: 'Vazifalar soni',
@@ -43,15 +43,7 @@ export const uz = {
         members: 'Xodimlar',
     },
 
-    projects_page: {
-        name: 'Loyiha nomi',
-        title: 'Loyihalar',
-        add: 'Loyiha qo\'shish',
-        edit_project: 'Loyihani tahrirlash',
-        description: 'Loyihani tavsifi',
-        start_date: 'Loyihaning boshlanish sanasi',
-        choose_employee: 'Ishchini tanlang',
-    },
+    
     project_page: {
         name: 'Loyiha nomi',
         title: 'Loyihalar',
@@ -60,6 +52,8 @@ export const uz = {
         description: 'Loyihani tavsifi',
         start_date: 'Loyihaning boshlanish sanasi',
         choose_employee: 'Ishchini tanlang',
+        add_member: 'Xodim qo\'shish',
+        delete_confirm: 'Loyihani azosini  o\'chirishni tasdiqlayszmi?',
     },
     common: {
         null: 'Noma\'lum',
@@ -138,6 +132,14 @@ export const uz = {
         ProjectsView: "Loyihalar",
         TasksView: "Vazifalarim",
         EmployeesView: "Xodimlar",
+    },
+    employee: {
+        add_success: 'Xodim muvaffaqiyatli yaratildi',
+        update_success: 'Xodim muvaffaqiyatli yangilandi',
+        delete_success: 'Xodim muvaffaqiyatli o\'chirildi',
+        add_failed: 'Xodim yaratishda xatolik',
+        update_failed: 'Xodimni yangilashda xatolik',
+        delete_failed: 'Xodimni o\'chirishda xatolik',
     },
     error_page: {
         page_not_found: 'Sahifa topilmadi (404)!',

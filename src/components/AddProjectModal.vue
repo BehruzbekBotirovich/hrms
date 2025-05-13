@@ -68,7 +68,7 @@ const formState = reactive({
 const employeeOptions = computed(() =>
     projectsStore.employees.map(emp => {
         const avatarSrc = emp.avatarUrl
-            ? `/uploads/${emp.avatarUrl}`
+            ? `/upload/${emp.avatarUrl}`
             : new URL('@/assets/images/def_ava.png', import.meta.url).href
         return {
             value: emp._id,

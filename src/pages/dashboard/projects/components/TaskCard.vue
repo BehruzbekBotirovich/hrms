@@ -82,7 +82,7 @@ function copyCurrentRoute(id) {
         <div class="flex gap-2">
             <a-avatar v-for="employee in task.assignedTo" :key="employee.id" size="medium">
                 <template #icon>
-                    <img crossorigin="anonymous" :src="`http://localhost:5000/user/avatar/` + employee.avatarUrl"
+                    <img crossorigin="anonymous" :src="`https://hrms-backend-mvdb.onrender.com/api/upload/avatar/` + employee.avatarUrl"
                         alt="avatar" />
                 </template>
             </a-avatar>
