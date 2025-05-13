@@ -6,7 +6,7 @@
       <img class="w-[100px] md:w-[150px] lg:w-[200px]" src="@/assets/images/authbanner.png" alt="" />
       <div>
         <h1 class="text-[20px] md:text-[32px] lg:text-[52px] font-bold m-0 text-blue-800">
-          HR PRO
+          Planera MS
         </h1>
         <h2 class="text-[14px] md:text-[24px] lg:text-[36px] font-bold m-0">
           Management tool for your projects and tasks</h2>

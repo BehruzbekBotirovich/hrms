@@ -1,7 +1,7 @@
 <template>
     <section class="p-4">
         <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
-            <router-link to="/dashboard/projects" class="hover:underline">{{ $t('projects_page.title') }}</router-link>
+            <router-link to="/dashboard/projects" class="hover:underline">{{ $t('project_page.title') }}</router-link>
             <span>/</span>
             <span class="text-black font-semibold">{{ projectName }}</span>
         </div>

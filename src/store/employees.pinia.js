@@ -42,7 +42,11 @@ const useEmployeesStroe = defineStore('tasks', {
             formData.append('chatId', employee.chatId)
             formData.append('department', employee.department)
             formData.append('position', employee.position)
-            formData.append('phone', employee.phone)
+
+            // Преобразуем телефонный номер в нужный формат
+            const formattedPhone = employee.phone.replace(/\D/g, '') // Убираем все нецифровые символы
+            const phoneWithPrefix = `+998${formattedPhone}` // Добавляем префикс +998
+            formData.append('phone', phoneWithPrefix)
 
             if (employee.image) {
                 formData.append('avatar', employee.image)  // ⬅️ 'avatar' должен совпадать с именем поля multer
@@ -56,21 +60,21 @@ const useEmployeesStroe = defineStore('tasks', {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-                .then(({ data }) => {
-                    this.employees.push(data)
-                    core.setToast({
-                        locale: 'employee.add_success',
-                        type: 'success'
-                    })
-                    modal.close()
-                    this.getAllEmployees()
-                })
-                .catch((error) => {
-                    core.switchStatus(error)
-                })
-                .finally(() => {
-                    this.loading = false
-                })
+              .then(({ data }) => {
+                  this.employees.push(data)
+                  core.setToast({
+                      locale: 'employee.add_success',
+                      type: 'success'
+                  })
+                  modal.close()
+                  this.getAllEmployees()
+              })
+              .catch((error) => {
+                  core.switchStatus(error)
+              })
+              .finally(() => {
+                  this.loading = false
+              })
         },
 
         deleteEmployee(employee_id) {

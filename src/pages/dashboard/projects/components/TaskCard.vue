@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useTasksStore from '@/store/tasks.pinia.js'
 import { notification } from 'ant-design-vue'
-
 const tasksStore = useTasksStore()
 
 const props = defineProps({
@@ -46,17 +45,7 @@ function copyCurrentRoute(id) {
             </p>
             <a-dropdown :trigger="['click']">
                 <a-button size="small" class="ant-dropdown-link" @click.stop>
-                    <svg width="14px" height="14px" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M4 12.3252C4 12.5904 4.10536 12.8448 4.29289 13.0323C4.48043 13.2198 4.73478 13.3252 5 13.3252C5.26522 13.3252 5.51957 13.2198 5.70711 13.0323C5.89464 12.8448 6 12.5904 6 12.3252C6 12.06 5.89464 11.8056 5.70711 11.6181C5.51957 11.4306 5.26522 11.3252 5 11.3252C4.73478 11.3252 4.48043 11.4306 4.29289 11.6181C4.10536 11.8056 4 12.06 4 12.3252Z"
-                            stroke="#354052" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M11 12.3252C11 12.5904 11.1054 12.8448 11.2929 13.0323C11.4804 13.2198 11.7348 13.3252 12 13.3252C12.2652 13.3252 12.5196 13.2198 12.7071 13.0323C12.8946 12.8448 13 12.5904 13 12.3252C13 12.06 12.8946 11.8056 12.7071 11.6181C12.5196 11.4306 12.2652 11.3252 12 11.3252C11.7348 11.3252 11.4804 11.4306 11.2929 11.6181C11.1054 11.8056 11 12.06 11 12.3252Z"
-                            stroke="#354052" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M18 12.3252C18 12.5904 18.1054 12.8448 18.2929 13.0323C18.4804 13.2198 18.7348 13.3252 19 13.3252C19.2652 13.3252 19.5196 13.2198 19.7071 13.0323C19.8946 12.8448 20 12.5904 20 12.3252C20 12.06 19.8946 11.8056 19.7071 11.6181C19.5196 11.4306 19.2652 11.3252 19 11.3252C18.7348 11.3252 18.4804 11.4306 18.2929 11.6181C18.1054 11.8056 18 12.06 18 12.3252Z"
-                            stroke="#354052" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                    <icon-triple-dots />
                 </a-button>
                 <template #overlay>
                     <a-menu>
@@ -82,7 +71,8 @@ function copyCurrentRoute(id) {
         <div class="flex gap-2">
             <a-avatar v-for="employee in task.assignedTo" :key="employee.id" size="medium">
                 <template #icon>
-                    <img crossorigin="anonymous" :src="`https://hrms-backend-mvdb.onrender.com/api/upload/avatar/` + employee.avatarUrl"
+                    <img crossorigin="anonymous"
+                        :src="`https://hrms-backend-mvdb.onrender.com/api/upload/avatar/` + employee.avatarUrl"
                         alt="avatar" />
                 </template>
             </a-avatar>

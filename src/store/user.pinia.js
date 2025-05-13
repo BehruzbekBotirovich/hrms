@@ -51,7 +51,7 @@ const useUser = defineStore('User', {
           // core.loadingMain = false
         })
     },
-    
+
     updateAvatar(data) {
       const core = useCore()
       // core.loadingMain = true
@@ -72,6 +72,26 @@ const useUser = defineStore('User', {
         })
         .finally(() => {
           // core.loadingMain = false
+        })
+    },
+
+    getMyKpi() {
+      const core = useCore()
+      const currentDate = new Date()
+      api({
+        url: 'users/me/kpi',
+        method: 'GET',
+        params: {
+          month: currentDate.getMonth() + 1, // getMonth() returns 0-11, so add 1
+          year: currentDate.getFullYear()
+        }
+      })
+        .then(({ data }) => {
+          this.user.kpi = data
+          console.log(this.user)
+        })
+        .catch((error) => {
+          core.switchStatus(error)
         })
     }
   }

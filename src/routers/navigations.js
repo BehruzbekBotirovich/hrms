@@ -3,23 +3,16 @@ import { h } from 'vue'
 import ProjectsPage from '@/pages/dashboard/projects/ProjectsPage.vue'
 import TasksPage from '@/pages/dashboard/tasks/TasksPage.vue'
 import ProfilePage from '@/pages/dashboard/profile/ProfilePage.vue'
-import WorkTimePage from '@/pages/dashboard/worktime/WorkTimePage.vue'
 // icons
 import IconProject from '@/components/icons/IconProject.vue'
 import IconTasks from '@/components/icons/IconTasks.vue'
 import IconTripleUser from '@/components/icons/IconTripleUser.vue'
-import IconCalendar from '@/components/icons/IconCalendar.vue'
 import IconProfile from '@/components/icons/IconProfile.vue'
 // views components
 import ProjectTasks from '../pages/dashboard/projects/views/FolderTasks.vue'
 import ProjectDeatils from '../pages/dashboard/projects/views/ProjectView.vue'
 import ProjectsList from '../pages/dashboard/projects/components/ProjectsList.vue'
 import EmployeesPage from '../pages/dashboard/employees/EmployeesPage.vue'
-// import useUser from '@/store/user.pinia.js'
-
-// const user = useUser()
-// const isAdmin = user.user?.role === 'admin'
-// const isManager = user.user?.role === 'manager'
 
 const navigations = [
   {
@@ -76,15 +69,6 @@ const navigations = [
       icon: () => h(IconTripleUser)
     },
   },
-  // {
-  //   path: 'workings',
-  //   name: 'WorkingView',
-  //   component: WorkTimePage,
-  //   meta: {
-  //     showMenu: isAdmin || isManager, // показывать для админа и менеджера
-  //     icon: () => h(IconCalendar)
-  //   },
-  // },
-]
+ ]
 
 export default navigations

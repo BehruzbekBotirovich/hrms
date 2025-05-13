@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive} from 'vue'
 import UserProfileInfo from './components/UserProfileInfo.vue'
 import ProfileStat from './components/ProfileStat.vue'
 import useUser from '../../../store/user.pinia'

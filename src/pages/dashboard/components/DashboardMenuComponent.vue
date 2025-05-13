@@ -7,7 +7,9 @@ import IconChevronRightDouble from '@/components/icons/IconChevronRightDouble.vu
 import navigations from '@/routers/navigations.js'
 import useCore from '@/store/core.pinia.js'
 import { storeToRefs } from 'pinia'
+import useUser from '../../../store/user.pinia'
 
+const userStore = useUser()
 const { t } = useI18n()
 
 const route = useRoute()
@@ -25,6 +27,11 @@ const menuList = navigations
     icon: item.meta.icon,
     key: item.path
   }))
+
+const filteredList = computed(() => {
+  return userStore.user?.role === 'admin' || userStore.user?.role === 'manager'
+    ? menuList : menuList.filter((item) => item.key !== 'employees')
+})
 
 const selectedKeys = computed(() => [
   route.fullPath.split('/')[2].split('?')[0]
@@ -58,7 +65,7 @@ function navigate({ item }) {
       </div>
     </div>
     <div class="flex flex-col gap-[2px] w-full menu">
-      <a-menu @click="navigate" :selected-keys="selectedKeys" :items="menuList" :inline-collapsed="collapsed"
+      <a-menu @click="navigate" :selected-keys="selectedKeys" :items="filteredList" :inline-collapsed="collapsed"
         mode="inline" class="ant-menu-custom-class" />
     </div>
   </div>

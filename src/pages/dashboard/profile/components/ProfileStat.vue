@@ -19,14 +19,19 @@ import {
     CheckCircleOutlined,
     FileTextOutlined,
 } from '@ant-design/icons-vue'
+import useUser from '@/store/user.pinia.js'
+import { onMounted, ref } from 'vue';
 
-const stats = [
-    // { key: 'workTime', value: '208 soat', icon: ClockCircleOutlined },
-    // { key: 'workDays', value: '26 kun', icon: CalendarOutlined },
-    { key: 'unassignedTasks', value: '14', icon: QuestionCircleOutlined },
-    { key: 'completedVolume', value: '4 soat', icon: CheckCircleOutlined },
-    { key: 'expectedVolume', value: '33 soat', icon: FileTextOutlined },
-    // { key: 'daysLate', value: '<strong>26 ish kunidan 14 kun kechikgan</strong>', icon: ClockCircleOutlined },
-    // { key: 'hoursLate', value: '<strong>208 soat dan 33 soat 21 daqiqa kechikgan</strong>', icon: ClockCircleOutlined },
-]
+const userStore = useUser()
+
+onMounted(() => {
+    userStore.getMyKpi()
+})
+
+const stats = ref([
+    { key: 'unassignedTasks', value: userStore.user?.kpi?.assignedCount, icon: CalendarOutlined, },
+    { key: 'linkedDoneTasks', value: userStore.user?.kpi?.completedCount, icon: CheckCircleOutlined },
+    { key: 'expectedVolume', value: userStore.user?.kpi?.totalAssignedTime, icon: FileTextOutlined },
+    { key: 'completedVolume', value: userStore.user?.kpi?.completedTime, icon: ClockCircleOutlined },
+])
 </script>
