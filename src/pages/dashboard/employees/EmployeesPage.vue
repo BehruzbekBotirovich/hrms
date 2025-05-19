@@ -3,12 +3,11 @@
         <h2 class="text-2xl font-bold">Employee Management</h2>
         <a-button type="primary" @click="openAddEmployeeModal">Add Employee</a-button>
     </div>
-    <!-- Tabs для переключения между списком сотрудников и статистикой -->
     <a-tabs default-active-key="1">
-        <a-tab-pane key="1" tab="Employee List">
+        <a-tab-pane key="1" :tab="$t('employee.list')">
             <EmployeeList />
         </a-tab-pane>
-        <a-tab-pane key="2" tab="Employees Statistics">
+        <a-tab-pane key="2" :tab="$t('employee.stat')">
             <EmployeesStatistics />
         </a-tab-pane>
     </a-tabs>

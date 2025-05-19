@@ -43,12 +43,12 @@
       </template>
       <template v-if="column.key === 'action'">
         <div class="flex items-center">
-          <!--          <a-button type="link" class="hover:bg-slate-200">-->
-          <!--            <icon-edit class="text-lg" />-->
-          <!--          </a-button>-->
-          <!-- Confirm Delete -->
+          <a-button @click="openEditModal(record)" type="link" class="hover:bg-slate-200">
+            <icon-edit class="text-lg" />
+          </a-button>
+
           <a-popconfirm
-            title="$t('confirm.delete')"
+            :title="$t('employee.confirm_delete')"
             :ok-text="$t('confirm.yes')"
             :cancel-text="$t('confirm.no')"
             @confirm="confirm(record._id)"
@@ -66,7 +66,7 @@
 
           <!-- Reactivate Employee -->
           <a-popconfirm
-            title="Are you sure you want to reactivate this employee?"
+            :title="$t('employee.reactive_confirm')"
             :ok-text="$t('confirm.yes')"
             :cancel-text="$t('confirm.no')"
             @confirm="reActiveEmployee(record._id)"
@@ -88,17 +88,29 @@
 
 <script setup>
 import { ref, reactive, computed, onMounted, shallowRef } from 'vue'
-import useEmployeesStore from '@/store/employees.pinia.js'
 import { useI18n } from 'vue-i18n'
+import useModal from '@/store/modal.pinia.js'
+//components
+import useEmployeesStore from '@/store/employees.pinia.js'
+import TaskAddModal from '@/components/AddTaskModal.vue'
+import UpdateEmployeeModal from '@/pages/dashboard/employees/components/UpdateEmployeeModal.vue'
 
 const { t } = useI18n()
-
+const modal = useModal()
 const employeesStore = useEmployeesStore()
 
 onMounted(() => {
   employeesStore.getAllEmployees()
 })
 
+const openEditModal = (employee) => {
+  modal.open({
+    component: shallowRef(UpdateEmployeeModal),
+    props: {
+       employee,
+    }
+  })
+}
 // Столбцы для таблицы
 const columns = [
   {

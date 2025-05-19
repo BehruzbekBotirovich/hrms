@@ -4,28 +4,28 @@ export const uz = {
     logout: 'Tizimdan chiqish',
     do_you_want_to_log_out: 'Tizimdan chiqmoqchimisiz?',
     yes: 'Ha',
-    no: 'Yo\'q',
+    no: "Yo'q",
     language: 'Til'
   },
   pagination_component: {
-    show_by: 'Ko\'rsatish'
+    show_by: "Ko'rsatish"
   },
   translate_component: {
     active: 'Aktiv',
-    latin: 'O\'zbek',
+    latin: "O'zbek",
     cyrillic: 'Ўзбек',
     russian: 'Русский',
     english: 'English'
   },
   notification_component: {
     error: 'Xatolik!',
-    internal_server_error: 'Server bilan bog\'liq xatolik',
+    internal_server_error: "Server bilan bog'liq xatolik",
     success: 'Muvaffaqiyatli'
   },
   confirm: {
     yes: 'Ha',
-    no: 'Yo\'q',
-    delete: 'O\'chirishni tasdiqlayszmi!'
+    no: "Yo'q",
+    delete: "O'chirishni tasdiqlayszmi!"
   },
   task: {
     time_limit: 'Belgilangan vaqt oraligi',
@@ -33,37 +33,36 @@ export const uz = {
     linked_employees: 'Biriktirilgan xodimlar',
     boards: 'Jarayonlar roʻyxati',
     count: 'Vazifalar soni',
-    noDueDate: 'muddati noma\'lum',
+    noDueDate: "muddati noma'lum",
     get_success: 'Vazifalar muvaffaqiyatli olindi',
-    add_success: 'Vazifa muvaffaqiyatli qo\'shildi',
-    change_success: 'Vazifa muvaffaqiyatli o\'zgartirildi',
+    add_success: "Vazifa muvaffaqiyatli qo'shildi",
+    change_success: "Vazifa muvaffaqiyatli o'zgartirildi",
     update_success: 'Vazifa muvaffaqiyatli yangilandi',
     mine: 'Mening vazifalarim',
     all: 'Barcha vazifalar',
     members: 'Xodimlar'
   },
 
-
   project_page: {
     name: 'Loyiha nomi',
     title: 'Loyihalar',
-    add: 'Loyiha qo\'shish',
+    add: "Loyiha qo'shish",
     edit_project: 'Loyihani tahrirlash',
     description: 'Loyihani tavsifi',
     start_date: 'Loyihaning boshlanish sanasi',
     choose_employee: 'Ishchini tanlang',
-    add_member: 'Xodim qo\'shish',
-    delete_confirm: 'Loyihani azosini  o\'chirishni tasdiqlayszmi?'
+    add_member: "Xodim qo'shish",
+    delete_confirm: "Loyihani azosini  o'chirishni tasdiqlayszmi?"
   },
   common: {
-    null: 'Noma\'lum',
-    add: 'Qo\'shish',
+    null: "Noma'lum",
+    add: "Qo'shish",
     linked_employees: 'Biriktirilgan xodimlar'
   },
   board_page: {
     linked_employees: 'Biriktirilgan xodimlar',
-    name: 'Bo\'lim nomi',
-    add: 'Bo\'lim qo\'shish'
+    name: "Bo'lim nomi",
+    add: "Bo'lim qo'shish"
   },
 
   stats: {
@@ -78,11 +77,11 @@ export const uz = {
   },
 
   copy: 'Nusxa olish',
-  add_task: 'Vazifa qo\'shish',
+  add_task: "Vazifa qo'shish",
   edit: 'Tahrirlash',
   save: 'Saqlash',
   cancel: 'Bekor qilish',
-  no_data: 'Ma\'lumotlar mavjud emas',
+  no_data: "Ma'lumotlar mavjud emas",
 
   board_list: {
     Created: 'Yaratilgan',
@@ -97,7 +96,7 @@ export const uz = {
   priority_component: {
     Urgent: 'Muhim',
     High: 'Yuqori',
-    Medium: 'O\'rta',
+    Medium: "O'rta",
     Normal: 'Normal',
     Low: 'Past'
   },
@@ -112,16 +111,16 @@ export const uz = {
   validations: {
     required_field: 'Majburiy maydon',
     the_phone_number_was_not_entered_completely:
-      'Telefon raqamni to\'g\'ri kiriting',
+      "Telefon raqamni to'g'ri kiriting",
     invalid_phone_number_code:
-      'Noto\'g\'ri telefon raqam kodi. Ruxsat berilgan kodlar: ',
+      "Noto'g'ri telefon raqam kodi. Ruxsat berilgan kodlar: ",
     invalid_password:
-      'Kamida 8 ta belgi, kamida bitta katta va bitta kichik harf, faqat lotin harflari, kamida bitta raqam, faqat arab raqamlari, bo\'sh joysiz, ruxsat etilgan boshqa belgilar:  ',
+      "Kamida 8 ta belgi, kamida bitta katta va bitta kichik harf, faqat lotin harflari, kamida bitta raqam, faqat arab raqamlari, bo'sh joysiz, ruxsat etilgan boshqa belgilar:  ",
     invalid_email: 'Yaroqsiz elektron pochta'
   },
   menu: {
     AuthView: 'Kirish',
-    AuthRegisterWithEri: 'Ro\'yhatdan o\'tish',
+    AuthRegisterWithEri: "Ro'yhatdan o'tish",
     AuthLogin: 'Kirish',
     DashboardNotFond: 'Sahifa topilmadi',
     DashboardSettingsView: 'Sozlamalar',
@@ -135,20 +134,26 @@ export const uz = {
     EmployeesView: 'Xodimlar'
   },
   employee: {
+    list: "Hodimlar ro'yhati ",
+    stat: 'Hodimlar ish samaradorligi',
     fullName: "To'liq Ism",
-    email: "Email",
-    role: "Lavozim",
-    phone: "Telefon",
-    status: "Holat",
-    actions: "Harakatlar",
-    active: "Faol",
-    inactive: "Faol emas",
+    position:'Pozitsiyasi',
+    email: 'Email',
+    role: 'Lavozim',
+    phone: 'Telefon',
+    status: 'Holat',
+    actions: 'Harakatlar',
+    active: 'Faol',
+    inactive: 'Faol emas',
+    confirm_delete: 'Hodimni ochirishni tasdiqlaysizmi?',
+    reactive_confirm: 'Hodimni qayta faollashtirishni tasdiqlaysizmi?',
     add_success: 'Xodim muvaffaqiyatli yaratildi',
     update_success: 'Xodim muvaffaqiyatli yangilandi',
-    delete_success: 'Xodim muvaffaqiyatli o\'chirildi',
+    delete_success: "Xodim muvaffaqiyatli o'chirildi",
     add_failed: 'Xodim yaratishda xatolik',
+    update:'Malumotlarni yangilash',
     update_failed: 'Xodimni yangilashda xatolik',
-    delete_failed: 'Xodimni o\'chirishda xatolik'
+    delete_failed: "Xodimni o'chirishda xatolik"
   },
   error_page: {
     page_not_found: 'Sahifa topilmadi (404)!',
@@ -160,12 +165,11 @@ export const uz = {
     username: 'Foydalanuvchi nomi',
     password: 'Parol',
     password_confirm: 'Parolni tasdiqlash',
-    register: 'Ro\'yhatdan o\'tish',
+    register: "Ro'yhatdan o'tish",
     code: 'Kod',
     phone_number: 'Telefon raqam',
     reset_password: 'Parolni tiklash',
     sign_in: 'Tizimga kirish'
   }
-
 }
 export default uz

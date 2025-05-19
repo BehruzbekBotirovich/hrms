@@ -101,12 +101,12 @@ const useEmployeesStroe = defineStore('tasks', {
                 })
         },
 
-        updateEmployee(employee) {
+        updateEmployee(employee, id) {
             this.loading = true
             const core = useCore()
             const modal = useModal()
             api({
-                url: `/users/${employee._id}`,
+                url: `/users/${id}`,
                 method: 'PATCH',
                 data: employee
             })

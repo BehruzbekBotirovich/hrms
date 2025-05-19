@@ -8,7 +8,8 @@ const useUser = defineStore('User', {
     branches: {
       content: [],
       total: 15
-    }
+    },
+    loading: false,
   }),
   actions: {
     getUserMe() {
@@ -76,7 +77,7 @@ const useUser = defineStore('User', {
     },
 
     getMyKpi() {
-      const core = useCore()
+this.loading = true
       const currentDate = new Date()
       api({
         url: 'users/me/kpi',
@@ -92,6 +93,9 @@ const useUser = defineStore('User', {
         })
         .catch((error) => {
           core.switchStatus(error)
+        })
+        .finally(() => {
+          this.loading = false
         })
     }
   }
