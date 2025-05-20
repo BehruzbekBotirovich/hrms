@@ -1,9 +1,7 @@
 import { defineStore } from 'pinia'
 import useCore from '@/store/core.pinia.js'
 import { api } from '@/utils/api/index.js'
-import {
-  loginWithPasswordApi,
-} from '@/api/auth.api.js'
+import { loginWithPasswordApi } from '@/api/auth.api.js'
 import useModal from '@/store/modal.pinia.js'
 import { shallowRef } from 'vue'
 
@@ -13,11 +11,11 @@ const useAuth = defineStore('auth', {
     loading: false
   }),
   actions: {
-     // Number password login & OTP
+    // Number password login & OTP
     loginWithPassword(form) {
-      const { switchStatus, redirect } = useCore()
       this.loading = true
-    
+      const { switchStatus, redirect, loadingUrl } = useCore()
+      loadingUrl.add('get-token')
       loginWithPasswordApi(form) // POST auth/sign-in
         .then(({ data }) => {
           localStorage.setItem('access_token', data?.accessToken)
@@ -29,10 +27,9 @@ const useAuth = defineStore('auth', {
         })
         .finally(() => {
           this.loading = false
+          loadingUrl.delete('get-token')
         })
     }
-    
-
   }
 })
 

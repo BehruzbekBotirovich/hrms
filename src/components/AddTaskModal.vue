@@ -1,7 +1,7 @@
 <template>
-    <div class="flex h-full w-[900px]">
+    <div class="flex h-full w-[700px]">
         <!-- Левая часть: форма -->
-        <div class="w-2/3 p-6 bg-white rounded-lg shadow-md border overflow-y-auto">
+        <div class="w-full p-6 bg-white rounded-lg shadow-md border overflow-y-auto">
             <h2 class="text-xl font-semibold mb-6">Vazifa qo'shish</h2>
 
             <a-form layout="vertical" @submit.prevent="handleSubmit">
@@ -59,11 +59,6 @@
                     <a-button type="primary" html-type="submit" :loading="tasksStore.loading">Saqlash</a-button>
                 </div>
             </a-form>
-        </div>
-
-        <!-- Правая часть -->
-        <div class="w-1/3 border-l p-4 flex flex-col justify-center items-center bg-gray-50 text-gray-400">
-            <p>Ma'lumot yo'q</p>
         </div>
     </div>
 </template>

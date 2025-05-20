@@ -52,30 +52,30 @@ onMounted(() => {
 
 const columns = [
   {
-    title: 'Full Name',
+    title: 'To\'liq ismi',
     dataIndex: 'user.fullName',
     key: 'fullName'
   },
   {
-    title: 'Assigned Tasks',
+    title: 'Biriktirilgan vazifalar soni',
     dataIndex: 'assignedCount',
     key: 'assignedCount',
     align: 'center'
   },
   {
-    title: 'Completed Tasks',
+    title: 'Tugatilgan vazifalari',
     dataIndex: 'completedCount',
     key: 'completedCount',
     align: 'center'
   },
   {
-    title: 'Completed Time',
+    title: 'Bajarilgan vazifalar soat hisobida',
     dataIndex: 'completedTime',
     key: 'completedTime',
     align: 'center'
   },
   {
-    title: 'Total Assigned Time',
+    title: 'Bariktirlangan vazifalar soat hisobida',
     dataIndex: 'totalAssignedTime',
     key: 'totalAssignedTime',
     align: 'center'
