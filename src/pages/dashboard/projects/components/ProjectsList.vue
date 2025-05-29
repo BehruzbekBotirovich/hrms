@@ -30,29 +30,29 @@
         >
           <div class="flex items-center justify-between">
             <h4 class="text-lg font-semibold mb-2">{{ project?.name }}</h4>
-<!--            <a-dropdown :trigger="['click']">-->
-<!--              <a-button size="small" class="ant-dropdown-link" @click.stop>-->
-<!--                <icon-triple-dots />-->
-<!--              </a-button>-->
-<!--              <template #overlay>-->
-<!--                <a-menu>-->
-<!--                  <a-menu-item key="0">-->
-<!--                    <div @click="$emit('selfClick')" class="flex items-center gap-1">-->
-<!--                      <icon-edit /> <span>Tahrirlash</span>-->
-<!--                    </div>-->
-<!--                  </a-menu-item>-->
-<!--                  <a-menu-item key="1">-->
-<!--                    <a-popconfirm :title="$t('confirm.delete')"-->
-<!--                                  @confirm="tasksStore.deleteTask(task._id, props.boardId)" :ok-text="$t('confirm.yes')"-->
-<!--                                  :cancel-text="$t('confirm.no')">-->
-<!--                      <div class="flex items-center gap-1">-->
-<!--                        <icon-delete /><span>O'chirish</span>-->
-<!--                      </div>-->
-<!--                    </a-popconfirm>-->
-<!--                  </a-menu-item>-->
-<!--                </a-menu>-->
-<!--              </template>-->
-<!--            </a-dropdown>-->
+            <a-dropdown :trigger="['click']" v-if="userMe.user.role==='admin'">
+              <a-button size="small" class="ant-dropdown-link" @click.stop>
+                <icon-triple-dots />
+              </a-button>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item key="0">
+                    <div @click="$emit('selfClick')" class="flex items-center gap-1">
+                      <icon-edit /> <span>Tahrirlash</span>
+                    </div>
+                  </a-menu-item>
+                  <a-menu-item key="1">
+                    <a-popconfirm :title="$t('confirm.delete')"
+                                  @confirm="projectsStore.archiveProject(project._id)" :ok-text="$t('confirm.yes')"
+                                  :cancel-text="$t('confirm.no')">
+                      <div class="flex items-center gap-1">
+                        <icon-delete /><span>O'chirish</span>
+                      </div>
+                    </a-popconfirm>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
           </div>
           <p class="text-gray-600 mb-3">{{ project?.description }}</p>
           <div class="flex flex-wrap items-center gap-2">
@@ -83,6 +83,7 @@ import useProjectsStore from '@/store/projects.pinia.js'
 import BadgeComponent from '@/components/BadgeComponent.vue'
 import useModal from '@/store/modal.pinia.js'
 import ProjectSceleton from '@/components/ProjectSceleton.vue'
+import useUser from '@/store/user.pinia.js'
 
 // icons
 import IconPinned from '@/components/icons/IconPinned.vue'
@@ -92,6 +93,7 @@ import AddProjectModal from '@/components/AddProjectModal.vue'
 
 const projectsStore = useProjectsStore()
 const modal = useModal()
+const userMe = useUser()
 
 function openAddProjectModal() {
   modal.open({

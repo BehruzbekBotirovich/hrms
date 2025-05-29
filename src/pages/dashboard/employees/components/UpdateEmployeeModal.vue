@@ -65,7 +65,7 @@
         </a-col>
 
         <a-col :span="12">
-          <a-button @click="handleSubmit" html-type="submit" type="primary" class="w-full"
+          <a-button @click="handleSubmit" :loading="employeesStore.loading" html-type="submit" type="primary" class="w-full"
             > {{$t('employee.update')}}
           </a-button>
         </a-col>
@@ -102,7 +102,7 @@ const roleOptions = [
 
 // Обработчик отправки формы
 const handleSubmit = () => {
-  employeesStore.updateEmployee(formData)
+  employeesStore.updateEmployee(formData, props.employee._id)
 }
 </script>
 

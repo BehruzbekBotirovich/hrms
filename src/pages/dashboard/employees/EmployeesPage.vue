@@ -1,9 +1,9 @@
 <template>
     <div class="flex itemcenter justify-between mt-2 pr-4"> 
         <h2 class="text-2xl font-bold">Employee Management</h2>
-        <a-button type="primary" @click="openAddEmployeeModal">Add Employee</a-button>
+        <a-button type="primary" @click="openAddEmployeeModal">{{$t('employee.add')}}</a-button>
     </div>
-    <a-tabs default-active-key="1">
+    <a-tabs default-active-key="2">
         <a-tab-pane key="1" :tab="$t('employee.list')">
             <EmployeeList />
         </a-tab-pane>

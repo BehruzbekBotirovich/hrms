@@ -9,7 +9,7 @@ const useUser = defineStore('User', {
       content: [],
       total: 15
     },
-    loading: false,
+    loading: false
   }),
   actions: {
     getUserMe() {
@@ -77,7 +77,7 @@ const useUser = defineStore('User', {
     },
 
     getMyKpi() {
-this.loading = true
+      this.loading = true
       const currentDate = new Date()
       api({
         url: 'users/me/kpi',

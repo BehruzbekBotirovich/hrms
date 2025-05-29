@@ -28,6 +28,7 @@ export const uz = {
     delete: "O'chirishni tasdiqlayszmi!"
   },
   task: {
+    creator:'Vazifa yaratuvchisi',
     time_limit: 'Belgilangan vaqt oraligi',
     priority: 'Vazifa ustuvorligi',
     linked_employees: 'Biriktirilgan xodimlar',
@@ -134,6 +135,7 @@ export const uz = {
     EmployeesView: 'Xodimlar'
   },
   employee: {
+    add:'Hodim qo\'shish',
     list: "Hodimlar ro'yhati ",
     stat: 'Hodimlar ish samaradorligi',
     fullName: "To'liq Ism",

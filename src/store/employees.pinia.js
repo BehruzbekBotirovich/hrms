@@ -3,7 +3,7 @@ import { api } from '@/utils/api/index.js'
 import useCore from '@/store/core.pinia.js'
 import useModal from './modal.pinia'
 
-const useEmployeesStroe = defineStore('tasks', {
+const useEmployeesStore = defineStore('tasks', {
     state: () => ({
         loading: false,
         employees: [],
@@ -150,7 +150,7 @@ const useEmployeesStroe = defineStore('tasks', {
                 })
         },
 
-        getEmployeesKpi(month = new Date().getMonth() + 1, year = new Date().getFullYear()) {
+        getEmployeesKpi(month, year) {
             this.loading = true
             api({
                 url: `/users/kpi`,
@@ -171,4 +171,4 @@ const useEmployeesStroe = defineStore('tasks', {
     }
 })
 
-export default useEmployeesStroe
+export default useEmployeesStore

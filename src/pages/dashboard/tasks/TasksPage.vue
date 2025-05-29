@@ -10,7 +10,7 @@
             :to="`/dashboard/projects/tasks/${task?.boardId?._id}?projectName=${projectId?.name}&boardName=${task?.boardId?.name}&projectId=${task?.projectId?._id}`">
             <div class="bg-gray-50 task-card rounded-lg shadow-md p-4 space-y-1 mb-3 mx-2">
               <div class="font-semibold"> {{ task.title }}</div>
-              <div class="text-sm text-gray-600"> Board: <span class="text-black">{{ task.boardId.name }}</span></div>
+              <div class="text-sm text-gray-600">Board: <span class="text-black">{{ task.boardId.name }}</span></div>
               <div class="text-sm text-gray-600">Project: <span class="text-black"> {{ task.projectId.name }}</span>
               </div>
 
@@ -26,7 +26,7 @@
                 </a-tag>
               </div>
 
-              <div class="text-sm"> <span class="text-gray-600">Created by:</span> {{ task.createdBy?.fullName }}</div>
+              <div class="text-sm"> <span class="text-gray-600">{{$t('task.creator')}}:</span> {{ task.createdBy?.fullName }}</div>
             </div>
 
           </router-link>

@@ -11,7 +11,7 @@ const useProjectsStore = defineStore('projects', {
     boards: [],
     project_members: [],
     loading: false,
-    loadingModal: false,
+    loadingModal: false
   }),
 
   actions: {
@@ -38,7 +38,7 @@ const useProjectsStore = defineStore('projects', {
 
     addProject(project) {
       const core = useCore()
-      console.log(project);
+      console.log(project)
       // core.loadingMain = true
       api({
         url: '/projects',
@@ -53,6 +53,24 @@ const useProjectsStore = defineStore('projects', {
         })
         .finally(() => {
           // core.loadingMain = false
+        })
+    },
+    archiveProject(projectId) {
+      const core = useCore()
+      this.loading = true
+      api({
+        url: '/projects',
+        method: 'DELETE',
+        pk: projectId
+      })
+        .then(({ data }) => {
+          this.getProjects()
+        })
+        .catch((error) => {
+          core.switchStatus(error)
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
@@ -147,7 +165,7 @@ const useProjectsStore = defineStore('projects', {
       })
         .then(({ data }) => {
           this.all_employees = data
-          console.log(data);
+          console.log(data)
         })
         .catch((error) => {
           core.switchStatus(error)
@@ -155,7 +173,7 @@ const useProjectsStore = defineStore('projects', {
         .finally(() => {
           // core.loadingMain = false
         })
-    },
+    }
   }
 })
 
