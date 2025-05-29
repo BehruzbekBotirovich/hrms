@@ -46,7 +46,7 @@
                                   @confirm="projectsStore.archiveProject(project._id)" :ok-text="$t('confirm.yes')"
                                   :cancel-text="$t('confirm.no')">
                       <div class="flex items-center gap-1">
-                        <icon-delete /><span>O'chirish</span>
+                        <icon-delete /><span>{{$t('project_page.delete')}}</span>
                       </div>
                     </a-popconfirm>
                   </a-menu-item>
@@ -56,7 +56,7 @@
           </div>
           <p class="text-gray-600 mb-3">{{ project?.description }}</p>
           <div class="flex flex-wrap items-center gap-2">
-            <badge-component :status="project?.isArchived" content="Ochiq" />
+            <badge-component :status="project?.isArchived" :content="project?.isArchived ? t('close') : t('open') " />
             <span
               class="text-sm border text-gray-800 bg-gray-100 px-2 py-0.5 rounded flex items-center gap-1"
             >
@@ -84,7 +84,9 @@ import BadgeComponent from '@/components/BadgeComponent.vue'
 import useModal from '@/store/modal.pinia.js'
 import ProjectSceleton from '@/components/ProjectSceleton.vue'
 import useUser from '@/store/user.pinia.js'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 // icons
 import IconPinned from '@/components/icons/IconPinned.vue'
 import IconUser from '@/components/icons/IconUser.vue'

@@ -53,6 +53,8 @@ export const uz = {
     start_date: 'Loyihaning boshlanish sanasi',
     choose_employee: 'Ishchini tanlang',
     add_member: "Xodim qo'shish",
+    delete:'Arxivlash',
+    reverse_del:'Arxivdan chiqarish',
     delete_confirm: "Loyihani azosini  o'chirishni tasdiqlayszmi?"
   },
   common: {
